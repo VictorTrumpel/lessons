@@ -49,7 +49,8 @@ public class DynArray<T> {
   }
 
   public void insert(T itm, int index) throws IOException {
-    this.checkIndexRange(index);
+    if (index != 0)
+      this.checkIndexRange(index);
 
     if (this.count == this.capacity) {
       this.makeArray(this.capacity * 2);
