@@ -64,13 +64,18 @@ public class DynArray<T> {
   }
 
   public void remove(int index) throws IOException {
-    if (index > this.count - 1 || index < 0)
+    if (index > this.count - 1 || index < 0) {
       throw new IOException("out of range");
+    }
 
     this.array[index] = null;
 
-    for (int i = index; i < this.count - 1; i++) {
-      this.array[i] = this.array[i + 1];
+    for (int i = index; i < this.count; i++) {
+      if (i == this.count - 1) {
+        this.array[i] = null;
+      } else {
+        this.array[i] = this.array[i + 1];
+      }
     }
 
     if (this.count > 0)
@@ -78,13 +83,14 @@ public class DynArray<T> {
 
     float fillPercent = (float) this.count / (float) this.capacity;
 
-    if (fillPercent >= 0.5)
-      return;
-
     int new_capacity = (int) (this.capacity / 1.5);
 
-    if (this.count < this.capacity && new_capacity > 16) {
+    if (fillPercent >= 0.5 || this.count == this.capacity)
+      return;
+
+    if (new_capacity > 16)
       this.capacity = new_capacity;
-    }
+    else
+      this.capacity = 16;
   }
 }
