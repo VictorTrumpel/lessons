@@ -49,7 +49,7 @@ public class DynArray<T> {
   }
 
   public void insert(T itm, int index) throws IOException {
-    if (index != 0)
+    if (index != this.count)
       this.checkIndexRange(index);
 
     if (this.count == this.capacity) {
