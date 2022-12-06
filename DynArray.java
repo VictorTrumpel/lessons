@@ -29,7 +29,7 @@ public class DynArray<T> {
   }
 
   public void checkIndexRange(int index) throws IOException {
-    if (index >= this.count || index < 0)
+    if (index > this.count || index < 0)
       throw new IOException("out of range");
   }
 
@@ -49,8 +49,8 @@ public class DynArray<T> {
   }
 
   public void insert(T itm, int index) throws IOException {
-    if (index != this.count)
-      this.checkIndexRange(index);
+    if (index > this.count || index < 0)
+      throw new IOException("out of range");
 
     if (this.count == this.capacity) {
       this.makeArray(this.capacity * 2);
@@ -68,7 +68,8 @@ public class DynArray<T> {
   }
 
   public void remove(int index) throws IOException {
-    this.checkIndexRange(index);
+    if (index > this.count - 1 || index < 0)
+      throw new IOException("out of range");
 
     this.array[index] = null;
 
@@ -76,7 +77,13 @@ public class DynArray<T> {
       this.array[i] = this.array[i + 1];
     }
 
-    this.count -= 1;
+    if (this.count > 0)
+      this.count -= 1;
+
+    float fillPercent = (float) this.count / (float) this.capacity;
+
+    if (fillPercent >= 0.5)
+      return;
 
     int new_capacity = (int) (this.capacity / 1.5);
 
