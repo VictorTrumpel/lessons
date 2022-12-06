@@ -28,13 +28,9 @@ public class DynArray<T> {
     this.array = newArray;
   }
 
-  public void checkIndexRange(int index) throws IOException {
-    if (index > this.count || index < 0)
-      throw new IOException("out of range");
-  }
-
   public T getItem(int index) throws IOException {
-    this.checkIndexRange(index);
+    if (index > this.count - 1 || index < 0)
+      throw new IOException("out of range");
 
     return this.array[index];
   }
@@ -73,7 +69,7 @@ public class DynArray<T> {
 
     this.array[index] = null;
 
-    for (int i = index; i < this.count; i++) {
+    for (int i = index; i < this.count - 1; i++) {
       this.array[i] = this.array[i + 1];
     }
 
