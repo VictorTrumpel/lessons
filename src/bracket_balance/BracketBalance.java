@@ -1,15 +1,15 @@
 package bracket_balance;
 
-import stack_head.*;
-
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
 
 import org.junit.Test;
 
 public class BracketBalance {
 
   public boolean is_balance(String str) {
-    HeadStack<Character> openBracketsStack = new HeadStack<Character>();
+    ArrayList<Character> stack = new ArrayList<Character>();
 
     Character close_bracket = ")".charAt(0);
 
@@ -19,10 +19,10 @@ public class BracketBalance {
       if (symbol == close_bracket)
         break;
 
-      openBracketsStack.push(symbol);
+      stack.add(symbol);
     }
 
-    return openBracketsStack.size() * 2 == str.length();
+    return stack.size() * 2 == str.length();
   }
 
   @Test
