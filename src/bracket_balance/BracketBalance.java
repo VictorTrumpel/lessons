@@ -9,26 +9,20 @@ import org.junit.Test;
 public class BracketBalance {
 
   public boolean is_balance(String str) {
-    HeadStack<Character> headStack = new HeadStack<Character>();
+    HeadStack<Character> openBracketsStack = new HeadStack<Character>();
 
-    Character open_bracket = "(".charAt(0);
     Character close_bracket = ")".charAt(0);
 
     for (int i = 0; i < str.length(); i++) {
       Character symbol = str.charAt(i);
-      Character head = headStack.peek();
 
-      Boolean is_anti_bracket = symbol == open_bracket && head == close_bracket ||
-          symbol == close_bracket && head == open_bracket;
+      if (symbol == close_bracket)
+        break;
 
-      if (is_anti_bracket) {
-        headStack.pop();
-      } else {
-        headStack.push(symbol);
-      }
+      openBracketsStack.push(symbol);
     }
 
-    return headStack.size() == 0;
+    return openBracketsStack.size() * 2 == str.length();
   }
 
   @Test
@@ -42,6 +36,22 @@ public class BracketBalance {
     assertEquals(this.is_balance(")"), false);
     assertEquals(this.is_balance("))"), false);
     assertEquals(this.is_balance("()"), true);
+
+    assertEquals(this.is_balance(")("), false);
+    assertEquals(this.is_balance("()())"), false);
+
+    assertEquals(this.is_balance("())())"), false);
+
+    assertEquals(this.is_balance("()()()"), false);
+
+    assertEquals(this.is_balance(")()("), false);
+
+    assertEquals(this.is_balance("()()"), false);
+
+    assertEquals(this.is_balance("(((((("), false);
+
+    assertEquals(this.is_balance(")(((((("), false);
+    assertEquals(this.is_balance("()())(((((("), false);
   }
 
 }
