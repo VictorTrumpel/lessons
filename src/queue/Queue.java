@@ -1,8 +1,10 @@
 package queue;
 
+import stack.*;
+
 public class Queue<T> {
-  private Node<T> head;
-  private Node<T> tail;
+  private Node head;
+  private Node tail;
   private int length;
 
   public Queue() {
@@ -12,7 +14,7 @@ public class Queue<T> {
   }
 
   public void enqueue(T item) {
-    Node<T> newNode = new Node<T>(item);
+    Node newNode = new Node(item);
     length += 1;
 
     if (tail == null) {
@@ -40,9 +42,23 @@ public class Queue<T> {
     return length;
   }
 
-  class Node<T> {
+  public void rotate(int n) {
+    Stack<T> stack = new Stack<T>();
+
+    int rotateLength = n < size() ? n : size() - 1;
+
+    for (int i = 0; i < rotateLength; i++) {
+      stack.push(dequeue());
+    }
+
+    for (int i = 0; i < n; i++) {
+      enqueue(stack.pop());
+    }
+  }
+
+  class Node {
     public T value;
-    public Node<T> next;
+    public Node next;
 
     public Node(T _value) {
       value = _value;
