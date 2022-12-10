@@ -1,6 +1,6 @@
 public class Queue<T> {
-  private Node<T> head;
-  private Node<T> tail;
+  private Node head;
+  private Node tail;
   private int length;
 
   public Queue() {
@@ -10,7 +10,7 @@ public class Queue<T> {
   }
 
   public void enqueue(T item) {
-    Node<T> newNode = new Node<T>(item);
+    Node newNode = new Node(item);
     length += 1;
 
     if (tail == null) {
@@ -38,9 +38,9 @@ public class Queue<T> {
     return length;
   }
 
-  class Node<T> {
+  class Node {
     public T value;
-    public Node<T> next;
+    public Node next;
 
     public Node(T _value) {
       value = _value;

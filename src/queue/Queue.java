@@ -1,7 +1,3 @@
-package queue;
-
-import stack.*;
-
 public class Queue<T> {
   private Node head;
   private Node tail;
@@ -40,20 +36,6 @@ public class Queue<T> {
 
   public int size() {
     return length;
-  }
-
-  public void rotate(int n) {
-    Stack<T> stack = new Stack<T>();
-
-    int rotateLength = n < size() ? n : size() - 1;
-
-    for (int i = 0; i < rotateLength; i++) {
-      stack.push(dequeue());
-    }
-
-    for (int i = 0; i < n; i++) {
-      enqueue(stack.pop());
-    }
   }
 
   class Node {
