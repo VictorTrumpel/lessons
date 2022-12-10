@@ -78,4 +78,19 @@ public class Queue_Test {
     }
   }
 
+  @Test
+  public void test_4() {
+    Queue<Integer> queue = new Queue<Integer>();
+
+    assertEquals(queue.dequeue(), null);
+    assertEquals(queue.size(), 0);
+
+    for (int i = 1; i < 1001; i++) {
+      queue.enqueue(i);
+    }
+
+    assertEquals(queue.dequeue(), (Integer) 1);
+    assertEquals(queue.size(), 999);
+  }
+
 }
