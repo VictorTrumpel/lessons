@@ -31,6 +31,10 @@ public class Queue<T> {
     T headValue = head.value;
     head = head.next;
 
+    if (length == 0) {
+      tail = null;
+    }
+
     return headValue;
   }
 

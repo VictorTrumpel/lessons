@@ -18,5 +18,8 @@ public class TestQueueConsol {
     System.out.println(queue.size() == 1000);
     System.out.println(queue.dequeue() == 1);
     System.out.println(queue.size() == 999);
+
+    System.out.println(queue.dequeue() == 2);
+    System.out.println(queue.size() == 998);
   }
 }
