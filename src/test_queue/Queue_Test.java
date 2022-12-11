@@ -89,6 +89,8 @@ public class Queue_Test {
       queue.enqueue(String.valueOf(i));
     }
 
+    System.out.println(queue.dequeue());
+
     assertEquals(queue.dequeue(), "1");
     assertEquals(queue.size(), 999);
   }

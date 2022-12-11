@@ -1,3 +1,5 @@
+package queue;
+
 public class Queue<T> {
   private Node head;
   private Node tail;
