@@ -1,6 +1,6 @@
 public class Queue<T> {
-  private Node head;
-  private Node tail;
+  public Node head;
+  public Node tail;
   private int length;
 
   public Queue() {

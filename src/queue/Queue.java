@@ -1,8 +1,8 @@
 package queue;
 
 public class Queue<T> {
-  private Node head;
-  private Node tail;
+  public Node head;
+  public Node tail;
   private int length;
 
   public Queue() {
@@ -18,6 +18,7 @@ public class Queue<T> {
     if (tail == null) {
       head = newNode;
       tail = newNode;
+
       return;
     }
 
@@ -32,6 +33,10 @@ public class Queue<T> {
     length -= 1;
     T headValue = head.value;
     head = head.next;
+
+    if (length == 0) {
+      tail = null;
+    }
 
     return headValue;
   }
