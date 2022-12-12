@@ -1,5 +1,3 @@
-package deque;
-
 public class Deque<T> {
   private Node head;
   private Node tail;
