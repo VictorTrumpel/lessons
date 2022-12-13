@@ -53,17 +53,6 @@ public class Queue<T> {
     for (int i = 0; i < n; i++) {
       enqueue(dequeue());
     }
-
-    // ArrayList<T> list = new ArrayList<T>();
-
-    // int rotateLength = n < size() ? n : size() - 1;
-
-    // for (int i = 0; i < rotateLength * 2; i++) {
-    // if (i < rotateLength)
-    // list.add(dequeue());
-    // else
-    // enqueue(list.remove(list.size() - 1));
-    // }
   }
 
   class Node {
