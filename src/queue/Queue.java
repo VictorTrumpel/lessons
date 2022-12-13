@@ -1,5 +1,7 @@
 package queue;
 
+import java.util.ArrayList;
+
 import stack.*;
 
 public class Queue<T> {
@@ -48,16 +50,15 @@ public class Queue<T> {
   }
 
   public void rotate(int n) {
-    Stack<T> stack = new Stack<T>();
+    ArrayList<T> list = new ArrayList<T>();
 
     int rotateLength = n < size() ? n : size() - 1;
 
-    for (int i = 0; i < rotateLength; i++) {
-      stack.push(dequeue());
-    }
-
-    for (int i = 0; i < n; i++) {
-      enqueue(stack.pop());
+    for (int i = 0; i < rotateLength * 2; i++) {
+      if (i < rotateLength)
+        list.add(dequeue());
+      else
+        enqueue(list.remove(list.size() - 1));
     }
   }
 
