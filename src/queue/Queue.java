@@ -1,9 +1,5 @@
 package queue;
 
-import java.util.ArrayList;
-
-import stack.*;
-
 public class Queue<T> {
   public Node head;
   public Node tail;
