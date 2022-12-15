@@ -35,17 +35,22 @@ public class OrderedList_Test {
     list.add(2);
 
     assertEquals(list.head.value, (Integer) 2);
+    assertEquals(list.tail.value, (Integer) 2);
 
     list.add(3);
 
     assertEquals(list.head.value, (Integer) 2);
     assertEquals(list.head.next.value, (Integer) 3);
+    assertEquals(list.tail.value, (Integer) 3);
+    assertEquals(list.tail.prev.value, (Integer) 2);
 
     list.add(0);
 
     assertEquals(list.head.value, (Integer) 0);
     assertEquals(list.head.next.value, (Integer) 2);
     assertEquals(list.head.next.next.value, (Integer) 3);
+    assertEquals(list.tail.value, (Integer) 3);
+    assertEquals(list.tail.prev.value, (Integer) 2);
 
     list.add(1);
 
@@ -158,6 +163,61 @@ public class OrderedList_Test {
     list.delete(2);
 
     list.delete(2);
+  }
+
+  @Test
+  public void test_7() {
+    OrderedList<Integer> list = new OrderedList<Integer>(false);
+
+    list.add(2);
+
+    assertEquals(list.count(), 1);
+
+    list.delete(2);
+
+    assertEquals(list.count(), 0);
+
+    assertEquals(list.head, null);
+    assertEquals(list.tail, null);
+
+    list.add(1);
+    list.add(2);
+    list.add(3);
+
+    assertEquals(list.head.value, (Integer) 3);
+    assertEquals(list.head.prev, null);
+    assertEquals(list.head.next.value, (Integer) 2);
+    assertEquals(list.head.next.prev.value, (Integer) 3);
+    assertEquals(list.head.next.next.value, (Integer) 1);
+    assertEquals(list.head.next.next.next, null);
+    assertEquals(list.tail.value, (Integer) 1);
+
+    assertEquals(list.count(), 3);
+
+    list.delete(2);
+
+    assertEquals(list.head.value, (Integer) 3);
+    assertEquals(list.head.prev, null);
+    assertEquals(list.head.next.value, (Integer) 1);
+    assertEquals(list.head.next.prev.value, (Integer) 3);
+    assertEquals(list.head.next.next, null);
+
+    list.delete(3);
+
+    assertEquals(list.head.value, (Integer) 1);
+    assertEquals(list.head.prev, null);
+    assertEquals(list.head.next, null);
+
+    list.delete(3);
+
+    assertEquals(list.head.value, (Integer) 1);
+    assertEquals(list.head.prev, null);
+    assertEquals(list.head.next, null);
+
+    list.delete(1);
+
+    assertEquals(list.head, null);
+    assertEquals(list.tail, null);
   }
 
 }

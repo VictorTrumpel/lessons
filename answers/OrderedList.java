@@ -129,12 +129,18 @@ public class OrderedList<T> {
           node.prev.next = node.next;
           node.next.prev = node.prev;
 
+          if (length > 0)
+            length -= 1;
+
           return;
         }
 
         if (node.prev == null & node.next == null) {
           this.head = null;
           this.tail = null;
+
+          if (length > 0)
+            length -= 1;
 
           return;
         }
