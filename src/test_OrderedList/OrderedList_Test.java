@@ -33,9 +33,26 @@ public class OrderedList_Test {
   public void test_2() {
     OrderedList<Integer> list = new OrderedList<Integer>(true);
     list.add(2);
+
+    assertEquals(list.head.value, (Integer) 2);
+
     list.add(3);
+
+    assertEquals(list.head.value, (Integer) 2);
+    assertEquals(list.head.next.value, (Integer) 3);
+
     list.add(0);
+
+    assertEquals(list.head.value, (Integer) 0);
+    assertEquals(list.head.next.value, (Integer) 2);
+    assertEquals(list.head.next.next.value, (Integer) 3);
+
     list.add(1);
+
+    assertEquals(list.head.value, (Integer) 0);
+    assertEquals(list.head.next.value, (Integer) 1);
+    assertEquals(list.head.next.next.value, (Integer) 2);
+    assertEquals(list.head.next.next.next.value, (Integer) 3);
 
     assertEquals(list.count(), 4);
 
@@ -131,4 +148,16 @@ public class OrderedList_Test {
     assertEquals(arr.get(4).value, (Integer) (-1));
     assertEquals(arr.get(5).value, (Integer) (-3));
   }
+
+  @Test
+  public void test_6() {
+    OrderedList<Integer> list = new OrderedList<Integer>(false);
+
+    list.add(2);
+
+    list.delete(2);
+
+    list.delete(2);
+  }
+
 }

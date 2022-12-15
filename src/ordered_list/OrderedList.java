@@ -71,7 +71,6 @@ public class OrderedList<T> {
     }
 
     if (!_ascending && compare(newNode.value, head.value) >= 0) {
-      System.out.print(newNode.value);
       insertAfter(null, newNode);
       return;
     }
@@ -80,7 +79,7 @@ public class OrderedList<T> {
       while (currNode != null) {
         int compareResult = compare(newNode.value, currNode.value);
         if (compareResult <= 0) {
-          insertAfterNode = currNode;
+          insertAfterNode = currNode.prev;
           break;
         }
         currNode = currNode.next;
@@ -88,7 +87,6 @@ public class OrderedList<T> {
     }
 
     if (!_ascending) {
-      System.out.println("not assending");
       while (currNode != null) {
         int compareResult = compare(newNode.value, currNode.value);
         if (compareResult >= 0) {
@@ -124,11 +122,15 @@ public class OrderedList<T> {
         if (node.prev != null & node.next != null) {
           node.prev.next = node.next;
           node.next.prev = node.prev;
+
+          return;
         }
 
         if (node.prev == null & node.next == null) {
           this.head = null;
           this.tail = null;
+
+          return;
         }
 
         if (node.prev == null) {
@@ -149,6 +151,8 @@ public class OrderedList<T> {
 
       node = node.next;
     }
+
+    return;
   }
 
   public void clear(boolean asc) {
