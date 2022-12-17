@@ -64,6 +64,10 @@ public class HashTable_Test {
       System.out.println(table1.slots[i]);
     }
 
+    System.out.print("find: ");
+
+    System.out.println(table1.find(testCases[0]));
+
   }
 }
 

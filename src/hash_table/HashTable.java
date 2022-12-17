@@ -71,7 +71,16 @@ public class HashTable {
   }
 
   public int find(String value) {
-    // находит индекс слота со значением, или -1
+    int idx = 0;
+
+    while (idx < slots.length) {
+      if (slots[idx] == value) {
+        return idx;
+      }
+
+      idx += 1;
+    }
+
     return -1;
   }
 }
