@@ -9,13 +9,7 @@ import ordered_list.*;
 public class Main {
 
   public static void main(String[] args) {
+    Boolean[] checkedSlots = new Boolean[4];
 
-    OrderedList<Integer> list = new OrderedList<Integer>(false);
-
-    list.add(2);
-
-    list.delete(2);
-
-    System.out.println(list.count() == 0);
   }
 }
