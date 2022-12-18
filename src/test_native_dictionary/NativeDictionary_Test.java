@@ -35,5 +35,11 @@ public class NativeDictionary_Test {
     assertEquals(dict.get("key3"), null);
 
     assertEquals(dict.get("key2"), "LeonidSlotin");
+
+    dict.put("key2", "Sonic X");
+
+    assertEquals(dict.get("key2"), "Sonic X");
+
+    assertEquals(dict.isKey("key2"), true);
   }
 }
