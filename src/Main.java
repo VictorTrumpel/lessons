@@ -9,7 +9,8 @@ import ordered_list.*;
 public class Main {
 
   public static void main(String[] args) {
-    Boolean[] checkedSlots = new Boolean[4];
+    String[] checkedSlots = new String[4];
+    System.out.println(checkedSlots[2]);
 
   }
 }
