@@ -1,5 +1,6 @@
 public class PowerSet {
   private int size;
+  private int step;
 
   public String[] slots;
   public String[] values;
@@ -8,6 +9,7 @@ public class PowerSet {
 
   public PowerSet() {
     size = 20000;
+    step = 1;
     slots = new String[size];
     values = new String[size];
   }
@@ -25,11 +27,45 @@ public class PowerSet {
     return length;
   }
 
+  private int seekSlot(String value) {
+    int hashIdx = hashFun(value);
+
+    if (slots[hashIdx] == null) {
+      slots[hashIdx] = value;
+      return hashIdx;
+    }
+
+    if (value == slots[hashIdx])
+      return hashIdx;
+
+    int findIdx = hashIdx;
+    Boolean isCircle = false;
+
+    while (findIdx < slots.length) {
+      findIdx += step;
+
+      if (findIdx >= slots.length) {
+        isCircle = true;
+        int newIdx = findIdx - slots.length - 1;
+        findIdx = newIdx < 0 ? 0 : newIdx;
+      }
+
+      if (slots[findIdx] == null) {
+        return findIdx;
+      }
+
+      if (findIdx > hashIdx && isCircle)
+        break;
+    }
+
+    return -1;
+  }
+
   public void put(String value) {
     if (value == null)
       return;
 
-    int hashIdx = hashFun(value);
+    int hashIdx = seekSlot(value);
 
     if (values[hashIdx] != value)
       length += 1;
