@@ -213,6 +213,145 @@ public class PowerSet_Test {
     }
 
     assertEquals(set1.size(), 0);
+  }
 
+  @Test
+  public void test_4() {
+    PowerSet set1 = new PowerSet();
+    PowerSet set2 = new PowerSet();
+
+    set1.put("Victor");
+    set1.put("Kart");
+    set1.put("King");
+
+    set2.put("Victor");
+    set2.put("Kart");
+    set2.put("King");
+
+    PowerSet set3 = set1.union(set2);
+
+    assertEquals(set3.size(), 3);
+  }
+
+  @Test
+  public void test_5() {
+    PowerSet set1 = new PowerSet();
+    PowerSet set2 = new PowerSet();
+
+    set1.put("Victor");
+    set1.put("Kart");
+    set1.put("King");
+
+    set2.put("Master");
+
+    PowerSet set3 = set1.union(set2);
+
+    assertEquals(set3.size(), 4);
+
+    assertEquals(set3.get("Victor"), true);
+    assertEquals(set3.get("Kart"), true);
+    assertEquals(set3.get("King"), true);
+    assertEquals(set3.get("Master"), true);
+  }
+
+  @Test
+  public void test_6() {
+    PowerSet set1 = new PowerSet();
+    PowerSet set2 = new PowerSet();
+
+    for (int i = 0; i < 10000; i++) {
+      set1.put(String.valueOf(i));
+    }
+
+    for (int i = 10000; i < 20000; i++) {
+      set2.put(String.valueOf(i));
+    }
+
+    PowerSet set3 = set1.union(set2);
+
+    assertEquals(set3.size(), 20000);
+
+    for (int i = 0; i < 20000; i++) {
+      assertEquals(set3.get(String.valueOf(i)), true);
+    }
+
+    for (int i = 0; i < 20000; i++) {
+      set3.put(String.valueOf(i));
+    }
+
+    assertEquals(set3.size(), 20000);
+
+    for (int i = 0; i < 20000; i++) {
+      assertEquals(set3.get(String.valueOf(i)), true);
+    }
+
+    for (int i = 0; i < 20000; i++) {
+      assertEquals(set3.remove(String.valueOf(i)), true);
+    }
+
+    assertEquals(set3.size(), 0);
+  }
+
+  @Test
+  public void test_7() {
+    PowerSet set1 = new PowerSet();
+    PowerSet set2 = new PowerSet();
+
+    set2.put("Nose");
+    set2.put("Kart");
+    set2.put("King");
+
+    PowerSet set3 = set1.union(set2);
+
+    assertEquals(set3.size(), 3);
+
+    assertEquals(set3.get("Nose"), true);
+    assertEquals(set3.get("Kart"), true);
+    assertEquals(set3.get("King"), true);
+
+    set1.put("Galla");
+    set1.put("Master");
+    set1.put("Nose");
+    set1.put("Kart");
+    set1.put("King");
+
+    PowerSet set4 = set3.union(set1);
+
+    assertEquals(set4.size(), 5);
+    assertEquals(set4.get("Nose"), true);
+    assertEquals(set4.get("Kart"), true);
+    assertEquals(set4.get("King"), true);
+    assertEquals(set4.get("Galla"), true);
+    assertEquals(set4.get("Master"), true);
+  }
+
+  @Test
+  public void test_8() {
+    PowerSet set1 = new PowerSet();
+
+    set1.put("Nose");
+    set1.put("Kart");
+    set1.put("King");
+
+    PowerSet set2 = set1.union(set1);
+
+    assertEquals(set2.get("Nose"), true);
+    assertEquals(set2.get("Kart"), true);
+    assertEquals(set2.get("King"), true);
+  }
+
+  @Test
+  public void test_9() {
+    PowerSet set1 = new PowerSet();
+
+    set1.put("Nose");
+    set1.put("Kart");
+    set1.put("King");
+
+    PowerSet set2 = set1.union(set1);
+
+    assertEquals(set2.get("Nose"), true);
+    assertEquals(set2.get("Kart"), true);
+    assertEquals(set2.get("King"), true);
   }
 }
