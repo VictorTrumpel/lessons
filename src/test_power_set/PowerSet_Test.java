@@ -378,4 +378,26 @@ public class PowerSet_Test {
     assertEquals(set2.get("Kart"), true);
     assertEquals(set2.get("King"), true);
   }
+
+  @Test
+  public void test_10() {
+    PowerSet set1 = new PowerSet();
+    PowerSet set2 = set1.union(set1);
+
+    for (int i = 0; i < 20000; i++) {
+      if (i % 2 == 0)
+        set1.put(String.valueOf(i));
+      else
+        set2.put(String.valueOf(i));
+    }
+
+    assertEquals(set1.size(), 10000);
+    assertEquals(set2.size(), 10000);
+
+    PowerSet set3 = set1.union(set2);
+
+    for (int i = 0; i < 20000; i++) {
+      assertEquals(set3.get(String.valueOf(i)), true);
+    }
+  }
 }
