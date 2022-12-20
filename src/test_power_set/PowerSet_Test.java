@@ -231,6 +231,30 @@ public class PowerSet_Test {
     PowerSet set3 = set1.union(set2);
 
     assertEquals(set3.size(), 3);
+
+    assertEquals(set3.get("Victor"), true);
+    assertEquals(set3.get("Kart"), true);
+    assertEquals(set3.get("King"), true);
+
+    int victor_instance = 0;
+    int kart_instance = 0;
+    int king_instance = 0;
+
+    for (int i = 0; i < set3.slots.length; i++) {
+      if (set3.slots[i] != null && set3.slots[i].equals("Victor")) {
+        victor_instance += 1;
+      }
+      if (set3.slots[i] != null && set3.slots[i].equals("Kart")) {
+        kart_instance += 1;
+      }
+      if (set3.slots[i] != null && set3.slots[i].equals("King")) {
+        king_instance += 1;
+      }
+    }
+
+    assertEquals(victor_instance, 1);
+    assertEquals(kart_instance, 1);
+    assertEquals(king_instance, 1);
   }
 
   @Test
