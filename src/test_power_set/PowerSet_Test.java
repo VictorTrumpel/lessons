@@ -422,7 +422,7 @@ public class PowerSet_Test {
 
     assertEquals(set3.size(), 150);
 
-    for (int i = 1; i < 150; i++) {
+    for (int i = 1; i < 151; i++) {
       assertEquals(set3.get(String.valueOf(i)), true);
     }
   }
