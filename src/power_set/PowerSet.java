@@ -135,17 +135,17 @@ public class PowerSet {
   }
 
   public PowerSet difference(PowerSet set2) {
-    PowerSet unionPowerSet = new PowerSet();
+    PowerSet diffPowerSet = new PowerSet();
 
-    String[] set2Values = set2.slots;
+    for (int i = 0; i < slots.length; i++) {
+      String value = slots[i];
 
-    for (int i = 0; i < set2Values.length; i++) {
-      String value = set2Values[i];
-      if (value != null && !get(value))
-        unionPowerSet.put(set2Values[i]);
+      if (value != null && !set2.get(value)) {
+        diffPowerSet.put(value);
+      }
     }
 
-    return unionPowerSet;
+    return diffPowerSet;
   }
 
   public boolean isSubset(PowerSet set2) {

@@ -449,4 +449,90 @@ public class PowerSet_Test {
     }
   }
 
+  @Test
+  public void test_13() {
+    PowerSet set1 = new PowerSet();
+    PowerSet set2 = set1.union(set1);
+
+    for (int i = 1; i < 101; i++) {
+      set1.put(String.valueOf(i));
+    }
+
+    for (int i = 50; i < 151; i++) {
+      set2.put(String.valueOf(i));
+    }
+
+    PowerSet set3 = set1.intersection(set2);
+
+    assertEquals(set3.size(), 51);
+
+    for (int i = 50; i < 101; i++) {
+      assertEquals(set3.get(String.valueOf(i)), true);
+    }
+  }
+
+  @Test
+  public void test_14() {
+    PowerSet set1 = new PowerSet();
+    PowerSet set2 = set1.union(set1);
+
+    for (int i = 1; i < 101; i++) {
+      set1.put(String.valueOf(i));
+    }
+
+    for (int i = 50; i < 151; i++) {
+      set2.put(String.valueOf(i));
+    }
+
+    assertEquals(set1.isSubset(set2), false);
+    assertEquals(set2.isSubset(set1), false);
+  }
+
+  @Test
+  public void test_15() {
+    PowerSet set1 = new PowerSet();
+    PowerSet set2 = set1.union(set1);
+
+    for (int i = 1; i < 101; i++) {
+      set1.put(String.valueOf(i));
+    }
+
+    for (int i = 1; i < 151; i++) {
+      set2.put(String.valueOf(i));
+    }
+
+    assertEquals(set1.isSubset(set2), false);
+    assertEquals(set2.isSubset(set1), true);
+  }
+
+  @Test
+  public void test_16() {
+    PowerSet set1 = new PowerSet();
+    PowerSet set2 = set1.union(set1);
+
+    for (int i = 1; i < 101; i++) {
+      set1.put(String.valueOf(i));
+    }
+
+    for (int i = 50; i < 151; i++) {
+      set2.put(String.valueOf(i));
+    }
+
+    PowerSet set3 = set1.difference(set2);
+
+    assertEquals(set3.size(), 49);
+
+    for (int i = 1; i < 50; i++) {
+      assertEquals(set3.get(String.valueOf(i)), true);
+    }
+
+    PowerSet set4 = set2.difference(set1);
+
+    assertEquals(set4.size(), 50);
+
+    for (int i = 101; i < 151; i++) {
+      assertEquals(set4.get(String.valueOf(i)), true);
+    }
+  }
+
 }

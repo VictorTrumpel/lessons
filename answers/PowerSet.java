@@ -3,7 +3,6 @@ public class PowerSet {
   private int step;
 
   public String[] slots;
-  public String[] values;
 
   private int length = 0;
 
@@ -11,7 +10,6 @@ public class PowerSet {
     size = 20000;
     step = 1;
     slots = new String[size];
-    values = new String[size];
   }
 
   public int hashFun(String value) {
@@ -27,15 +25,10 @@ public class PowerSet {
     return length;
   }
 
-  private int seekSlot(String value) {
+  private int getEmptySlotIdx(String value) {
     int hashIdx = hashFun(value);
 
-    if (slots[hashIdx] == null) {
-      slots[hashIdx] = value;
-      return hashIdx;
-    }
-
-    if (value == slots[hashIdx])
+    if (slots[hashIdx] == null || slots[hashIdx].equals(value))
       return hashIdx;
 
     int findIdx = hashIdx;
@@ -64,20 +57,22 @@ public class PowerSet {
     if (value == null)
       return;
 
-    int hashIdx = seekSlot(value);
+    int hashIdx = getEmptySlotIdx(value);
 
-    if (values[hashIdx] != value)
+    if (hashIdx == -1)
+      return;
+
+    if (slots[hashIdx] == null || !slots[hashIdx].equals(value))
       length += 1;
 
     slots[hashIdx] = value;
-    values[hashIdx] = value;
   }
 
   private int find(String value) {
     int idx = 0;
 
-    while (idx < values.length) {
-      if (values[idx] != null && values[idx].equals(value)) {
+    while (idx < slots.length) {
+      if (slots[idx] != null && slots[idx].equals(value)) {
         return idx;
       }
 
@@ -102,7 +97,6 @@ public class PowerSet {
       return false;
 
     length -= 1;
-    values[hashIdx] = null;
     slots[hashIdx] = null;
     return true;
   }
@@ -110,7 +104,7 @@ public class PowerSet {
   public PowerSet intersection(PowerSet set2) {
     PowerSet intersectPowerSet = new PowerSet();
 
-    String[] set2Values = set2.values;
+    String[] set2Values = set2.slots;
 
     for (int i = 0; i < set2Values.length; i++) {
       String value = set2Values[i];
@@ -125,10 +119,10 @@ public class PowerSet {
   public PowerSet union(PowerSet set2) {
     PowerSet unionPowerSet = new PowerSet();
 
-    String[] set2Values = set2.values;
+    String[] set2Values = set2.slots;
 
-    for (int i = 0; i < values.length; i++) {
-      unionPowerSet.put(values[i]);
+    for (int i = 0; i < slots.length; i++) {
+      unionPowerSet.put(slots[i]);
     }
 
     for (int i = 0; i < set2Values.length; i++) {
@@ -139,21 +133,21 @@ public class PowerSet {
   }
 
   public PowerSet difference(PowerSet set2) {
-    PowerSet unionPowerSet = new PowerSet();
+    PowerSet diffPowerSet = new PowerSet();
 
-    String[] set2Values = set2.values;
+    for (int i = 0; i < slots.length; i++) {
+      String value = slots[i];
 
-    for (int i = 0; i < set2Values.length; i++) {
-      String value = set2Values[i];
-      if (value != null && !get(value))
-        unionPowerSet.put(set2Values[i]);
+      if (value != null && !set2.get(value)) {
+        diffPowerSet.put(value);
+      }
     }
 
-    return unionPowerSet;
+    return diffPowerSet;
   }
 
   public boolean isSubset(PowerSet set2) {
-    String[] set2Values = set2.values;
+    String[] set2Values = set2.slots;
 
     for (int i = 0; i < set2Values.length; i++) {
       String value = set2Values[i];
