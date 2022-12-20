@@ -400,4 +400,30 @@ public class PowerSet_Test {
       assertEquals(set3.get(String.valueOf(i)), true);
     }
   }
+
+  @Test
+  public void test_11() {
+    PowerSet set1 = new PowerSet();
+    PowerSet set2 = set1.union(set1);
+
+    for (int i = 0; i < 100; i++) {
+      set1.put(String.valueOf(i));
+    }
+
+    assertEquals(set1.size(), 100);
+
+    for (int i = 50; i < 150; i++) {
+      set2.put(String.valueOf(i));
+    }
+
+    assertEquals(set2.size(), 100);
+
+    PowerSet set3 = set1.union(set2);
+
+    assertEquals(set3.size(), 150);
+
+    for (int i = 0; i < 150; i++) {
+      assertEquals(set3.get(String.valueOf(i)), true);
+    }
+  }
 }
