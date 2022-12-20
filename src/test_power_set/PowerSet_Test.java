@@ -197,4 +197,22 @@ public class PowerSet_Test {
     assertEquals(set4.get("Hanza"), true);
   }
 
+  @Test
+  public void test_3() {
+    PowerSet set1 = new PowerSet();
+
+    int ELEM_COUNT = 20000;
+
+    for (int i = 0; i < ELEM_COUNT; i++) {
+      set1.put(String.valueOf(i));
+    }
+
+    for (int i = 0; i < ELEM_COUNT; i++) {
+      assertEquals(set1.get(String.valueOf(i)), true);
+      set1.remove(String.valueOf(i));
+    }
+
+    assertEquals(set1.size(), 0);
+
+  }
 }

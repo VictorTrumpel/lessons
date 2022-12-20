@@ -50,9 +50,8 @@ public class PowerSet {
         findIdx = newIdx < 0 ? 0 : newIdx;
       }
 
-      if (slots[findIdx] == null) {
+      if (slots[findIdx] == null)
         return findIdx;
-      }
 
       if (findIdx > hashIdx && isCircle)
         break;
@@ -74,25 +73,38 @@ public class PowerSet {
     values[hashIdx] = value;
   }
 
+  private int find(String value) {
+    int idx = 0;
+
+    while (idx < values.length) {
+      if (values[idx] != null && values[idx].equals(value)) {
+        return idx;
+      }
+
+      idx += 1;
+    }
+
+    return -1;
+  }
+
   public boolean get(String value) {
-    int hashIdx = hashFun(value);
-    return values[hashIdx] == value;
+    int hashIdx = find(value);
+    return hashIdx != -1;
   }
 
   public boolean remove(String value) {
     if (value == null)
       return false;
 
-    int hashIdx = hashFun(value);
+    int hashIdx = find(value);
 
-    if (values[hashIdx] != null) {
-      length -= 1;
-      values[hashIdx] = null;
-      slots[hashIdx] = null;
-      return true;
-    }
+    if (hashIdx == -1)
+      return false;
 
-    return false;
+    length -= 1;
+    values[hashIdx] = null;
+    slots[hashIdx] = null;
+    return true;
   }
 
   public PowerSet intersection(PowerSet set2) {

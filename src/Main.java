@@ -10,7 +10,7 @@ public class Main {
 
   public static void main(String[] args) {
     String[] checkedSlots = new String[4];
-    System.out.println(checkedSlots[2]);
+    System.out.println(checkedSlots[-1]);
 
   }
 }
