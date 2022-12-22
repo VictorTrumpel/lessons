@@ -66,5 +66,18 @@ public class NativeCache_Test {
     assertEquals(native_cache.get("TEST_2"), "TEST_2");
 
     assertEquals(native_cache.size(), 20000);
+
+    for (int i = 0; i < SIZE; i++) {
+      native_cache.put(String.valueOf(i), String.valueOf(i) + "_SUPER_TEST");
+    }
+
+    assertEquals(native_cache.size(), 20000);
+
+    for (int i = 0; i < SIZE; i++) {
+      String value = native_cache.get(String.valueOf(i) + "_SUPER_TEST");
+      native_cache.put(String.valueOf(i) + "_SUPER_TEST", value);
+    }
+
+    assertEquals(native_cache.size(), 20000);
   }
 }
