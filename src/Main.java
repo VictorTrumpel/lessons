@@ -9,9 +9,10 @@ import ordered_list.*;
 public class Main {
 
   public static void main(String[] args) {
-    String str = "10234567890";
+    int[] arr = new int[3];
+    arr[0] += 2;
 
-    System.out.println(hash1(str));
+    System.out.print(arr[0]);
   }
 
   static int hash1(String str1) {
