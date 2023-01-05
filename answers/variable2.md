@@ -43,7 +43,7 @@ activeInput - disabledInput // активный инпут - заблокиро�
 
 *7.5*
 
-`
+```javascript
   let isAllDone = true - временная переменная, проверят, все ли подписанты во всех документах закончили свое подписание
       
   for (let docIdx = 0; docIdx < docLength; docIdx++) {
@@ -63,13 +63,14 @@ activeInput - disabledInput // активный инпут - заблокиро�
   if (isAllSignersDone) {
     // что-то делаем
   }
-`
+```
 
 
 *isAllDone* - лучше переименовать на *isAllSignersDone*
 
 и можно полностью избавиться от временной переменной если вынести 2 цикла в отдельную функцию и делать ранний выход
 
+```javascript
 const isAllSignersDone = () => {
   for (let docIdx = 0; docIdx < docLength; docIdx++) {
     for (let signerIdx = 0; signerIdx < signersLength; signerIdx++) {
@@ -89,4 +90,4 @@ const isAllSignersDone = () => {
 if (isAllSignersDone()) {
   // что-то делаем
 }
-
+```
