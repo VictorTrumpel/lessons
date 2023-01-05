@@ -12,6 +12,7 @@
 
 *7.2*
 
+```javascript
 success = sendDocument() // функция, которая отправляет документ и возвращает true - если успешно отправлен и false в обратном случае
 
 error = isValidForm() // функция проверяет валидность заполняемой формы
@@ -25,15 +26,18 @@ function toggleNextTusk(done) {
 
   // если не выполнена, сделать что-то другое
 }
+```
 
 *7.3*
 
+```javascript
 for (let docIdx = 0; docIdx < docLength; docIdx++) {
   for (let signerIdx = 0; signerIdx < signersLength; signerIdx++) {
     ...
   }
 }
 // у нас есть массив документов, в каждом документе есть массив подписантов и нужно пробежаться по каждому подписанту в каждом документе, как вариант
+```
 
 *7.4*
 
