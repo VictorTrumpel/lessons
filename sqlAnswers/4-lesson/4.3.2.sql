@@ -1,0 +1,2 @@
+SELECT * FROM Orders 
+WHERE Freight BETWEEN 100 AND 200
