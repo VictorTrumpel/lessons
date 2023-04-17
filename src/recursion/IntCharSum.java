@@ -5,11 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class IntCharSum {
-  private int sumChars(int n, int sum) {
+  public int sumChars(int n) {
     if (n == 0) {
-      int result = sum;
-      sum = 0;
-      return result;
+      return n;
     }
 
     int del = (int) Math.pow(10, Integer.toString(n).length() - 1);
@@ -17,13 +15,7 @@ public class IntCharSum {
     int reminder = n % del;
     int num = (int) Math.floor(n / del);
 
-    sum += num;
-
-    return sumChars(reminder, sum);
-  }
-
-  public int sumChars(int n) {
-    return sumChars(n, 0);
+    return num + sumChars(reminder);
   }
 
   @Test
@@ -39,5 +31,7 @@ public class IntCharSum {
     assertEquals(this.sumChars(101), 2);
 
     assertEquals(this.sumChars(1010005), 7);
+
+    assertEquals(this.sumChars(10100056), 13);
   }
 }
