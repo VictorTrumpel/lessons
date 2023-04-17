@@ -10,12 +10,7 @@ public class IntCharSum {
       return n;
     }
 
-    int del = (int) Math.pow(10, Integer.toString(n).length() - 1);
-
-    int reminder = n % del;
-    int num = (int) Math.floor(n / del);
-
-    return num + sumChars(reminder);
+    return n % 10 + sumChars(n / 10);
   }
 
   @Test
