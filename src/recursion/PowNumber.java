@@ -5,19 +5,19 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class PowNumber {
-  Integer count = null;
+  Integer factor = null;
 
   public int pow(int n, int m) {
-    if (count == null) {
-      count = n;
+    if (factor == null) {
+      factor = n;
     }
 
     if (m == 1) {
-      count = null;
+      factor = null;
       return n;
     }
 
-    int multiplex = n * count;
+    int multiplex = n * factor;
 
     return pow(multiplex, m - 1);
   }
