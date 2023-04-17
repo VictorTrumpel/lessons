@@ -8,13 +8,17 @@ public class PowNumber {
   Integer factor = null;
 
   public int pow(int n, int m) {
-    if (factor == null) {
-      factor = n;
+    if (m == 0) {
+      return 1;
     }
 
     if (m == 1) {
       factor = null;
       return n;
+    }
+
+    if (factor == null) {
+      factor = n;
     }
 
     int multiplex = n * factor;
@@ -31,5 +35,9 @@ public class PowNumber {
     assertEquals(this.pow(3, 2), 9);
 
     assertEquals(this.pow(4, 2), 16);
+
+    assertEquals(this.pow(5, 3), 125);
+
+    assertEquals(this.pow(5, 0), 1);
   }
 }
