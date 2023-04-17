@@ -5,9 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class IntCharSum {
-  int sum = 0;
-
-  public int sumChars(int n) {
+  private int sumChars(int n, int sum) {
     if (n == 0) {
       int result = sum;
       sum = 0;
@@ -21,7 +19,11 @@ public class IntCharSum {
 
     sum += num;
 
-    return sumChars(reminder);
+    return sumChars(reminder, sum);
+  }
+
+  public int sumChars(int n) {
+    return sumChars(n, 0);
   }
 
   @Test

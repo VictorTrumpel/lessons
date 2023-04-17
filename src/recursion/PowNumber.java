@@ -5,25 +5,22 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class PowNumber {
-  Integer factor = null;
+  private int pow(int n, int m, int factor) {
+    if (m == 1) {
+      return n;
+    }
+
+    int multiplex = n * factor;
+
+    return pow(multiplex, m - 1, factor);
+  }
 
   public int pow(int n, int m) {
     if (m == 0) {
       return 1;
     }
 
-    if (m == 1) {
-      factor = null;
-      return n;
-    }
-
-    if (factor == null) {
-      factor = n;
-    }
-
-    int multiplex = n * factor;
-
-    return pow(multiplex, m - 1);
+    return pow(n, m, n);
   }
 
   @Test
