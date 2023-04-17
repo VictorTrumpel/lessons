@@ -1,4 +1,4 @@
-package int_char_sum;
+package recursion;
 
 import static org.junit.Assert.*;
 
