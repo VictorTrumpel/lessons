@@ -28,6 +28,7 @@ public class Main {
 
     printItems.printEven(list);
 
+    printItems.printEven(new ArrayList<Integer>());
   }
 
   static int hash1(String str1) {
