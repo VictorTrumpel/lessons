@@ -10,10 +10,14 @@ public class Palindrom {
     if (str.length() == 1)
       return true;
 
-    if (str.charAt(0) != str.charAt(str.length() - 1))
+    char firstChar = str.charAt(0);
+    char lastChar = str.charAt(str.length() - 1);
+    String newString = str.substring(1, str.length() - 1);
+
+    if (firstChar != lastChar)
       return false;
 
-    return isPalindrom(str.substring(1, str.length() - 1));
+    return isPalindrom(newString);
   }
 
   @Test
