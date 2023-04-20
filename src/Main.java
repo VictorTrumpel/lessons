@@ -13,10 +13,12 @@ import java.util.*;
 
 import recursion.PrintEventItems;
 
+import recursion.PrintEvenIdx;
+
 public class Main {
 
   public static void main(String[] args) {
-    PrintEventItems printItems = new PrintEventItems();
+    PrintEvenIdx printItems = new PrintEvenIdx();
 
     List<Integer> list = new ArrayList<Integer>();
     list.add(1);
@@ -26,9 +28,9 @@ public class Main {
 
     printItems.printEven(list);
 
-    printItems.printEven(list);
+    // printItems.printEven(list);
 
-    printItems.printEven(new ArrayList<Integer>());
+    // printItems.printEven(new ArrayList<Integer>());
   }
 
   static int hash1(String str1) {
