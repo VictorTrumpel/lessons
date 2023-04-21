@@ -14,13 +14,21 @@ public class SecondMax {
 
     int currentNumber = list.get(currentIdx);
 
-    if (currentNumber > firstMax)
-      return findSecondMax(list, currentNumber, firstMax, currentIdx + 1);
+    Integer newFirstMax = null;
+    Integer newSecondMax = null;
 
-    if (currentNumber > secondMax)
-      return findSecondMax(list, firstMax, currentNumber, currentIdx + 1);
+    if (currentNumber > firstMax) {
+      newFirstMax = currentNumber;
+      newSecondMax = firstMax;
+    } else if (currentNumber > secondMax) {
+      newFirstMax = firstMax;
+      newSecondMax = currentNumber;
+    } else {
+      newFirstMax = firstMax;
+      newSecondMax = secondMax;
+    }
 
-    return findSecondMax(list, firstMax, secondMax, currentIdx + 1);
+    return findSecondMax(list, newFirstMax, newSecondMax, currentIdx + 1);
   }
 
   public int findSecondMax(List<Integer> list) {
