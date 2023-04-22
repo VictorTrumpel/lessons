@@ -6,14 +6,17 @@ import java.io.File;
 
 public class ReadDir {
 
-  List<String> findFiles(String path, List<String> filesList) {
+  public List<String> findFiles(String path) {
     File dir = new File(path);
 
     File[] filesInDir = dir.listFiles();
 
+    List<String> filesList = new ArrayList<String>();
+
     for (File file : filesInDir) {
       if (file.isDirectory()) {
-        findFiles(path + '/' + file.getName(), filesList);
+        List<String> subFiles = findFiles(path + '/' + file.getName());
+        filesList.addAll(subFiles);
       } else {
         filesList.add(file.getName());
       }
@@ -21,10 +24,4 @@ public class ReadDir {
 
     return filesList;
   }
-
-  public List<String> findFiles(String path) {
-    ArrayList<String> list = new ArrayList<String>();
-    return findFiles(path, list);
-  }
-
 }
