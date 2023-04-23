@@ -10,7 +10,7 @@ public class SimpleTreeNode<T> {
   }
 }
 
-class SimpleTree<T> {
+public class SimpleTree<T> {
   public SimpleTreeNode<T> Root; // корень, может быть null
 
   public SimpleTree(SimpleTreeNode<T> root) {
@@ -42,7 +42,6 @@ class SimpleTree<T> {
     if (parentOfDeleteNode.Children.size() == 0)
       parentOfDeleteNode.Children = null;
 
-    NodeToDelete.Children = null;
     NodeToDelete.Parent = null;
   }
 

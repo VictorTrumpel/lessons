@@ -34,7 +34,6 @@ public class SimpleTree<T> {
     if (parentOfDeleteNode.Children.size() == 0)
       parentOfDeleteNode.Children = null;
 
-    NodeToDelete.Children = null;
     NodeToDelete.Parent = null;
   }
 

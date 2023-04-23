@@ -230,6 +230,10 @@ public class SimpleTreeNode_Test {
 
     assertEquals(3, root.Children.size());
     assertEquals(null, node1.Children);
+
+    List<SimpleTreeNode<Integer>> listOfNodes = tree.GetAllNodes();
+
+    assertEquals(13, listOfNodes.size());
   }
 
   @Test
