@@ -78,8 +78,19 @@ public class BST<T> {
   }
 
   public BSTNode<T> FinMinMax(BSTNode<T> FromNode, boolean FindMax) {
-    // ищем максимальный/минимальный ключ в поддереве
-    return null;
+    if (FindMax && FromNode.RightChild == null) {
+      return FromNode;
+    }
+
+    if (!FindMax && FromNode.LeftChild == null) {
+      return FromNode;
+    }
+
+    if (FindMax) {
+      return FinMinMax(FromNode.RightChild, FindMax);
+    }
+
+    return FinMinMax(FromNode.LeftChild, FindMax);
   }
 
   public boolean DeleteNodeByKey(int key) {
