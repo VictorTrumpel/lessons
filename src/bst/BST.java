@@ -1,5 +1,7 @@
 package bst;
 
+import java.util.*;
+
 public class BST<T> {
   BSTNode<T> Root; // корень дерева, или null
 
@@ -15,6 +17,25 @@ public class BST<T> {
       return bstFind;
     }
     return FindNodeByKey(key, Root);
+  }
+
+  public ArrayList<BSTNode> WideAllNodes() {
+    ArrayList<BSTNode> allNodes = new ArrayList<BSTNode>();
+    ArrayList<BSTNode> queue = new ArrayList<BSTNode>();
+
+    queue.add(Root);
+
+    while (queue.size() > 0) {
+      BSTNode node = queue.remove(0);
+      allNodes.add(node);
+
+      if (node.LeftChild != null)
+        queue.add(node.LeftChild);
+      if (node.RightChild != null)
+        queue.add(node.RightChild);
+    }
+
+    return allNodes;
   }
 
   BSTFind<T> FindNodeByKey(int key, BSTNode<T> currNode) {
@@ -88,6 +109,9 @@ public class BST<T> {
   }
 
   public boolean DeleteNodeByKey(int key) {
+    if (Root == null)
+      return false;
+
     BSTFind<T> bstFind = FindNodeByKey(key, Root);
 
     if (!bstFind.NodeHasKey)
