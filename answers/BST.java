@@ -1,6 +1,32 @@
-package bst;
+class BSTNode<T> {
+  public int NodeKey; // ключ узла
+  public T NodeValue; // значение в узле
+  public BSTNode<T> Parent; // родитель или null для корня
+  public BSTNode<T> LeftChild; // левый потомок
+  public BSTNode<T> RightChild; // правый потомок
 
-public class BST<T> {
+  public BSTNode(int key, T val, BSTNode<T> parent) {
+    NodeKey = key;
+    NodeValue = val;
+    Parent = parent;
+    LeftChild = null;
+    RightChild = null;
+  }
+}
+
+class BSTFind<T> {
+  public BSTNode<T> Node;
+
+  public boolean NodeHasKey;
+
+  public boolean ToLeft;
+
+  public BSTFind() {
+    Node = null;
+  }
+}
+
+class BST<T> {
   BSTNode<T> Root; // корень дерева, или null
 
   public BST(BSTNode<T> node) {

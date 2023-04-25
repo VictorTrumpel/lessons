@@ -217,4 +217,172 @@ public class BST_Test {
 
     assertEquals(5, minNode.NodeKey);
   }
+
+  @Test
+  public void test_5() {
+    BSTNode<Integer> root = new BSTNode<Integer>(4, 4, null);
+
+    BSTNode<Integer> node2 = new BSTNode<Integer>(2, 2, root);
+    BSTNode<Integer> node6 = new BSTNode<Integer>(6, 6, root);
+
+    root.LeftChild = node2;
+    root.RightChild = node6;
+
+    BSTNode<Integer> node1 = new BSTNode<Integer>(1, 1, node2);
+    BSTNode<Integer> node3 = new BSTNode<Integer>(3, 3, node2);
+
+    node2.LeftChild = node1;
+    node2.RightChild = node3;
+
+    BSTNode<Integer> node5 = new BSTNode<Integer>(5, 5, node6);
+    BSTNode<Integer> node7 = new BSTNode<Integer>(7, 7, node6);
+
+    node6.LeftChild = node5;
+    node6.RightChild = node7;
+
+    BST<Integer> bst = new BST<Integer>(root);
+
+    int countOfAllNodes = bst.Count();
+
+    assertEquals(7, countOfAllNodes);
+
+    bst = new BST<Integer>(null);
+
+    assertEquals(0, bst.Count());
+
+    root = new BSTNode<Integer>(4, 4, null);
+
+    bst = new BST<Integer>(root);
+
+    assertEquals(1, bst.Count());
+  }
+
+  @Test
+  public void test_6() {
+    BSTNode<Integer> root = new BSTNode<Integer>(4, 4, null);
+
+    BSTNode<Integer> node2 = new BSTNode<Integer>(2, 2, root);
+    BSTNode<Integer> node6 = new BSTNode<Integer>(6, 6, root);
+
+    root.LeftChild = node2;
+    root.RightChild = node6;
+
+    BSTNode<Integer> node1 = new BSTNode<Integer>(1, 1, node2);
+    BSTNode<Integer> node3 = new BSTNode<Integer>(3, 3, node2);
+
+    node2.LeftChild = node1;
+    node2.RightChild = node3;
+
+    BSTNode<Integer> node5 = new BSTNode<Integer>(5, 5, node6);
+    BSTNode<Integer> node7 = new BSTNode<Integer>(7, 7, node6);
+
+    node6.LeftChild = node5;
+    node6.RightChild = node7;
+
+    BST<Integer> bst = new BST<Integer>(root);
+
+    bst.DeleteNodeByKey(4);
+
+    assertEquals(null, root.LeftChild);
+    assertEquals(null, root.RightChild);
+
+    assertEquals(node2, node5.LeftChild);
+    assertEquals(node6, node5.RightChild);
+    assertEquals(null, node5.Parent);
+    assertEquals(null, node6.LeftChild);
+    assertEquals(node5, node6.Parent);
+    assertEquals(node5, node2.Parent);
+    assertEquals(6, bst.Count());
+    assertEquals(node7, node6.RightChild);
+  }
+
+  @Test
+  public void test_7() {
+    BSTNode<Integer> root = new BSTNode<Integer>(4, 4, null);
+
+    BSTNode<Integer> node2 = new BSTNode<Integer>(2, 2, root);
+    BSTNode<Integer> node6 = new BSTNode<Integer>(6, 6, root);
+
+    root.LeftChild = node2;
+    root.RightChild = node6;
+
+    BSTNode<Integer> node1 = new BSTNode<Integer>(1, 1, node2);
+    BSTNode<Integer> node3 = new BSTNode<Integer>(3, 3, node2);
+
+    node2.LeftChild = node1;
+    node2.RightChild = node3;
+
+    BSTNode<Integer> node7 = new BSTNode<Integer>(7, 7, node6);
+
+    node6.RightChild = node7;
+
+    BST<Integer> bst = new BST<Integer>(root);
+
+    bst.DeleteNodeByKey(4);
+
+    assertEquals(null, root.LeftChild);
+    assertEquals(null, root.RightChild);
+
+    assertEquals(null, node6.Parent);
+    assertEquals(node2, node6.LeftChild);
+    assertEquals(node7, node6.RightChild);
+    assertEquals(node6, node7.Parent);
+    assertEquals(node6, node2.Parent);
+    assertEquals(5, bst.Count());
+
+    bst.DeleteNodeByKey(7);
+
+    assertEquals(null, node6.Parent);
+    assertEquals(null, node6.RightChild);
+    assertEquals(node2, node6.LeftChild);
+    assertEquals(null, node7.Parent);
+    assertEquals(4, bst.Count());
+
+    bst.DeleteNodeByKey(6);
+
+    assertEquals(null, node6.Parent);
+    assertEquals(null, node6.LeftChild);
+    assertEquals(null, node6.RightChild);
+
+    assertEquals(null, node2.Parent);
+
+    assertEquals(node1, node2.LeftChild);
+    assertEquals(node3, node2.RightChild);
+
+    assertEquals(node2, node1.Parent);
+    assertEquals(node2, node3.Parent);
+
+    assertEquals(3, bst.Count());
+
+    bst.DeleteNodeByKey(2);
+
+    assertEquals(null, node2.Parent);
+    assertEquals(null, node2.LeftChild);
+    assertEquals(null, node2.RightChild);
+
+    assertEquals(null, node3.RightChild);
+    assertEquals(null, node3.Parent);
+    assertEquals(node1, node3.LeftChild);
+    assertEquals(node3, node1.Parent);
+
+    bst.DeleteNodeByKey(3);
+
+    assertEquals(null, node3.Parent);
+    assertEquals(null, node3.LeftChild);
+    assertEquals(null, node3.RightChild);
+
+    assertEquals(null, node1.Parent);
+    assertEquals(null, node1.LeftChild);
+    assertEquals(null, node1.RightChild);
+
+    assertEquals(1, bst.Count());
+
+    bst.DeleteNodeByKey(1);
+
+    assertEquals(null, node1.Parent);
+    assertEquals(null, node1.LeftChild);
+    assertEquals(null, node1.RightChild);
+
+    assertEquals(0, bst.Count());
+  }
 }
