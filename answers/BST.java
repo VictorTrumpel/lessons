@@ -91,7 +91,7 @@ class BST<T> {
       list.add(currentNode);
     }
 
-    if (orderKey == 1) {
+    if (orderKey == 2) {
       list.add(currentNode);
 
       ArrayList<BSTNode> leftList = DeepAllNodes(currentNode.LeftChild, orderKey);
