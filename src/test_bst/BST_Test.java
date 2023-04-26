@@ -428,4 +428,37 @@ public class BST_Test {
     assertEquals(5, list.get(5).NodeKey);
     assertEquals(7, list.get(6).NodeKey);
   }
+
+  @Test
+  public void test_9() {
+    BSTNode<Integer> root = new BSTNode<Integer>(4, 4, null);
+
+    BSTNode<Integer> node2 = new BSTNode<Integer>(2, 2, root);
+    BSTNode<Integer> node6 = new BSTNode<Integer>(6, 6, root);
+
+    root.LeftChild = node2;
+    root.RightChild = node6;
+
+    BSTNode<Integer> node1 = new BSTNode<Integer>(1, 1, node2);
+    BSTNode<Integer> node3 = new BSTNode<Integer>(3, 3, node2);
+
+    node2.LeftChild = node1;
+    node2.RightChild = node3;
+
+    BSTNode<Integer> node5 = new BSTNode<Integer>(5, 5, node6);
+    BSTNode<Integer> node7 = new BSTNode<Integer>(7, 7, node6);
+
+    node6.LeftChild = node5;
+    node6.RightChild = node7;
+
+    BST<Integer> bst = new BST<Integer>(root);
+
+    ArrayList<BSTNode> inorderList = bst.DeepAllNodes(0);
+
+    assertEquals(7, inorderList.size());
+
+    for (int i = 0; i < inorderList.size() - 1; i++) {
+      assertEquals(true, inorderList.get(i).NodeKey < inorderList.get(i + 1).NodeKey);
+    }
+  }
 }

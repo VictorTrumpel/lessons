@@ -38,6 +38,48 @@ public class BST<T> {
     return allNodes;
   }
 
+  public ArrayList<BSTNode> DeepAllNodes(int orderKey) {
+    return DeepAllNodes(Root, orderKey);
+  }
+
+  ArrayList<BSTNode> DeepAllNodes(BSTNode currentNode, int orderKey) {
+    ArrayList<BSTNode> list = new ArrayList<BSTNode>();
+
+    if (currentNode == null) {
+      return list;
+    }
+
+    if (orderKey == 0) {
+      ArrayList<BSTNode> leftList = DeepAllNodes(currentNode.LeftChild, orderKey);
+      ArrayList<BSTNode> rightList = DeepAllNodes(currentNode.RightChild, orderKey);
+
+      list.addAll(leftList);
+      list.add(currentNode);
+      list.addAll(rightList);
+    }
+
+    if (orderKey == 1) {
+      ArrayList<BSTNode> leftList = DeepAllNodes(currentNode.LeftChild, orderKey);
+      ArrayList<BSTNode> rightList = DeepAllNodes(currentNode.RightChild, orderKey);
+
+      list.addAll(leftList);
+      list.addAll(rightList);
+      list.add(currentNode);
+    }
+
+    if (orderKey == 1) {
+      list.add(currentNode);
+
+      ArrayList<BSTNode> leftList = DeepAllNodes(currentNode.LeftChild, orderKey);
+      ArrayList<BSTNode> rightList = DeepAllNodes(currentNode.RightChild, orderKey);
+
+      list.addAll(leftList);
+      list.addAll(rightList);
+    }
+
+    return list;
+  }
+
   BSTFind<T> FindNodeByKey(int key, BSTNode<T> currNode) {
     if (key == currNode.NodeKey) {
       BSTFind<T> bstFind = new BSTFind<T>();

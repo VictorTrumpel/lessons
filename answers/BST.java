@@ -43,6 +43,67 @@ class BST<T> {
     return FindNodeByKey(key, Root);
   }
 
+  public ArrayList<BSTNode> WideAllNodes() {
+    ArrayList<BSTNode> allNodes = new ArrayList<BSTNode>();
+    ArrayList<BSTNode> queue = new ArrayList<BSTNode>();
+
+    queue.add(Root);
+
+    while (queue.size() > 0) {
+      BSTNode node = queue.remove(0);
+      allNodes.add(node);
+
+      if (node.LeftChild != null)
+        queue.add(node.LeftChild);
+      if (node.RightChild != null)
+        queue.add(node.RightChild);
+    }
+
+    return allNodes;
+  }
+
+  public ArrayList<BSTNode> DeepAllNodes(int orderKey) {
+    return DeepAllNodes(Root, orderKey);
+  }
+
+  ArrayList<BSTNode> DeepAllNodes(BSTNode currentNode, int orderKey) {
+    ArrayList<BSTNode> list = new ArrayList<BSTNode>();
+
+    if (currentNode == null) {
+      return list;
+    }
+
+    if (orderKey == 0) {
+      ArrayList<BSTNode> leftList = DeepAllNodes(currentNode.LeftChild, orderKey);
+      ArrayList<BSTNode> rightList = DeepAllNodes(currentNode.RightChild, orderKey);
+
+      list.addAll(leftList);
+      list.add(currentNode);
+      list.addAll(rightList);
+    }
+
+    if (orderKey == 1) {
+      ArrayList<BSTNode> leftList = DeepAllNodes(currentNode.LeftChild, orderKey);
+      ArrayList<BSTNode> rightList = DeepAllNodes(currentNode.RightChild, orderKey);
+
+      list.addAll(leftList);
+      list.addAll(rightList);
+      list.add(currentNode);
+    }
+
+    if (orderKey == 1) {
+      list.add(currentNode);
+
+      ArrayList<BSTNode> leftList = DeepAllNodes(currentNode.LeftChild, orderKey);
+      ArrayList<BSTNode> rightList = DeepAllNodes(currentNode.RightChild, orderKey);
+
+      list.addAll(leftList);
+      list.addAll(rightList);
+    }
+
+    return list;
+  }
+
   BSTFind<T> FindNodeByKey(int key, BSTNode<T> currNode) {
     if (key == currNode.NodeKey) {
       BSTFind<T> bstFind = new BSTFind<T>();
@@ -114,6 +175,9 @@ class BST<T> {
   }
 
   public boolean DeleteNodeByKey(int key) {
+    if (Root == null)
+      return false;
+
     BSTFind<T> bstFind = FindNodeByKey(key, Root);
 
     if (!bstFind.NodeHasKey)
@@ -217,5 +281,4 @@ class BST<T> {
 
     return allNodesCount + Count(node.LeftChild) + Count(node.RightChild);
   }
-
 }
