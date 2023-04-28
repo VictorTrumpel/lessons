@@ -7,7 +7,7 @@ public class ABST {
     int tree_size = 0;
 
     int factor = 1;
-    for (int i = 0; i < depth; i++) {
+    for (int i = 0; i <= depth; i++) {
       tree_size += factor;
       factor *= 2;
     }

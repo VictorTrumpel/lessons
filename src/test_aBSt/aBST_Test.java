@@ -12,17 +12,17 @@ public class aBST_Test {
 
   @Test
   public void test_1() {
-    ABST abst1 = new ABST(4);
+    ABST abst1 = new ABST(3);
 
     assertEquals(15, abst1.Tree.length);
 
     ABST abst2 = new ABST(1);
 
-    assertEquals(1, abst2.Tree.length);
+    assertEquals(3, abst2.Tree.length);
 
     ABST abst3 = new ABST(0);
 
-    assertEquals(0, abst3.Tree.length);
+    assertEquals(1, abst3.Tree.length);
   }
 
   @Test
