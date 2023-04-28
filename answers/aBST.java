@@ -1,7 +1,7 @@
 class aBST {
   public Integer Tree[];
 
-  public ABST(int depth) {
+  public aBST(int depth) {
     int tree_size = 0;
 
     int factor = 1;
