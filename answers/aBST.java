@@ -1,5 +1,5 @@
 class aBST {
-  public Integer Tree[]; // массив ключей
+  public Integer Tree[];
 
   public ABST(int depth) {
     int tree_size = 0;
