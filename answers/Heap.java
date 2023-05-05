@@ -1,6 +1,4 @@
-package heap;
-
-public class Heap {
+class Heap {
   public int[] HeapArray;
 
   public Heap() {
