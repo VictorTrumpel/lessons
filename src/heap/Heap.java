@@ -18,6 +18,10 @@ public class Heap {
 
     HeapArray = new int[tree_size];
 
+    for (int i = 0; i < HeapArray.length; i++) {
+      HeapArray[i] = -1;
+    }
+
     for (int i = 0; i < a.length; i++) {
       int key = a[i];
       Add(key);
@@ -31,7 +35,7 @@ public class Heap {
     int rootKey = HeapArray[0];
     int lastKey = HeapArray[HeapArray.length - 1];
 
-    HeapArray[HeapArray.length - 1] = 0;
+    HeapArray[HeapArray.length - 1] = -1;
     HeapArray[0] = lastKey;
 
     sortHeapAfterRemove(0);
@@ -43,8 +47,10 @@ public class Heap {
     Integer emptyIdx = null;
 
     for (int i = 0; i < HeapArray.length; i++) {
-      if (HeapArray[i] == 0)
+      if (HeapArray[i] == -1) {
         emptyIdx = i;
+        break;
+      }
     }
 
     if (emptyIdx == null)

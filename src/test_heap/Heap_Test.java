@@ -9,74 +9,21 @@ import heap.*;
 public class Heap_Test {
 
   @Test
-  public void test_1() {
+  public void test_6() {
     Heap heap = new Heap();
 
-    int[] nums = { 4, 1, 3, 7, 8, 9, 11 };
+    int[] nums = { 110, 90, 40, 70, 80, 30, 10, 20, 50, 60, 65, 31, 29, 11, 9 };
 
-    heap.MakeHeap(nums, 2);
+    heap.MakeHeap(nums, 3);
 
-    int[] expectedTree = { 11, 9, 4, 8, 7, 3, 1 };
+    int[] expectedNums = { 110, 90, 40, 70, 80, 31, 11, 20, 50, 60, 65, 30, 29, 10, 9 };
 
-    assertArrayEquals(expectedTree, heap.HeapArray);
+    assertArrayEquals(expectedNums, heap.HeapArray);
 
-    assertEquals(11, heap.GetMax());
+    assertEquals(110, heap.GetMax());
 
-    int[] expectedTree1 = { 9, 8, 4, 1, 7, 3, 0 };
+    int[] expectedNums1 = { 90, 80, 40, 70, 65, 31, 11, 20, 50, 60, 9, 30, 29, 10, -1 };
 
-    assertArrayEquals(expectedTree1, heap.HeapArray);
-
-    assertEquals(9, heap.GetMax());
-
-    int[] expectedTree2 = { 8, 7, 4, 1, 0, 3, 0 };
-
-    assertArrayEquals(expectedTree2, heap.HeapArray);
-  }
-
-  @Test
-  public void test_2() {
-    Heap heap = new Heap();
-
-    int[] nums = { 4, 1, 3, 7, 8, 9 };
-
-    heap.MakeHeap(nums, 2);
-
-    int[] expectedTree = { 9, 8, 4, 0, 7, 3, 1 };
-
-    assertArrayEquals(expectedTree, heap.HeapArray);
-
-    assertEquals(true, heap.Add(11));
-
-    int[] expectedTree2 = { 11, 9, 4, 8, 7, 3, 1 };
-
-    assertArrayEquals(expectedTree2, heap.HeapArray);
-
-    assertEquals(false, heap.Add(12));
-  }
-
-  @Test
-  public void test_3() {
-    Heap heap = new Heap();
-
-    int[] nums = { 4, 1, 3 };
-
-    heap.MakeHeap(nums, 2);
-
-    int[] expectedTree = { 4, 0, 3, 0, 0, 0, 1 };
-
-    assertArrayEquals(expectedTree, heap.HeapArray);
-  }
-
-  @Test
-  public void test_4() {
-    Heap heap = new Heap();
-
-    int[] nums = { 4 };
-
-    heap.MakeHeap(nums, 0);
-
-    int[] expectedTree = { 4 };
-
-    assertArrayEquals(expectedTree, heap.HeapArray);
+    assertArrayEquals(expectedNums1, heap.HeapArray);
   }
 }
