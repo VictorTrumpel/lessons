@@ -66,4 +66,17 @@ public class Heap_Test {
 
     assertArrayEquals(expectedTree, heap.HeapArray);
   }
+
+  @Test
+  public void test_4() {
+    Heap heap = new Heap();
+
+    int[] nums = { 4 };
+
+    heap.MakeHeap(nums, 0);
+
+    int[] expectedTree = { 4 };
+
+    assertArrayEquals(expectedTree, heap.HeapArray);
+  }
 }
