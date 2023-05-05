@@ -43,10 +43,6 @@ public class Heap_Test {
 
     int[] expectedTree = { 9, 8, 4, 0, 7, 3, 1 };
 
-    // for (int i = 0; i < heap.HeapArray.length; i++) {
-    // System.out.println("key i: " + i + " = " + heap.HeapArray[i]);
-    // }
-
     assertArrayEquals(expectedTree, heap.HeapArray);
 
     assertEquals(true, heap.Add(11));
@@ -56,5 +52,18 @@ public class Heap_Test {
     assertArrayEquals(expectedTree2, heap.HeapArray);
 
     assertEquals(false, heap.Add(12));
+  }
+
+  @Test
+  public void test_3() {
+    Heap heap = new Heap();
+
+    int[] nums = { 4, 1, 3 };
+
+    heap.MakeHeap(nums, 2);
+
+    int[] expectedTree = { 4, 0, 3, 0, 0, 0, 1 };
+
+    assertArrayEquals(expectedTree, heap.HeapArray);
   }
 }
