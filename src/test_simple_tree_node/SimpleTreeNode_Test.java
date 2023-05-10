@@ -365,7 +365,7 @@ public class SimpleTreeNode_Test {
 
     SimpleTree<Integer> tree = new SimpleTree<Integer>(node1);
 
-    ArrayList<Integer> evenList = tree.EvenTrees(node1);
+    ArrayList<Integer> evenList = tree.EvenTrees();
 
     for (int i = 0; i < evenList.size(); i++) {
       System.out.println("even i = " + evenList.get(i));
@@ -406,7 +406,7 @@ public class SimpleTreeNode_Test {
 
     SimpleTree<Integer> tree = new SimpleTree<Integer>(node1);
 
-    ArrayList<Integer> evenList = tree.EvenTrees(node1);
+    ArrayList<Integer> evenList = tree.EvenTrees();
 
     assertEquals((Integer) 1, evenList.get(0));
     assertEquals((Integer) 3, evenList.get(1));

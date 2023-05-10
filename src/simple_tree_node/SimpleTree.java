@@ -19,8 +19,8 @@ public class SimpleTree<T> {
     Root = root;
   }
 
-  public ArrayList<T> EvenTrees(SimpleTreeNode<T> node) {
-    TreeEvenParams<T> treeEvenParams = exploreTreeEvenParams(node);
+  public ArrayList<T> EvenTrees() {
+    TreeEvenParams<T> treeEvenParams = exploreTreeEvenParams(Root);
 
     if ((treeEvenParams.childCount + 1) % 2 == 0)
       return treeEvenParams.EvenTrees;
