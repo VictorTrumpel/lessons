@@ -2,11 +2,62 @@ package simple_tree_node;
 
 import java.util.*;
 
+class TreeEvenParams<T> {
+  int childCount;
+  ArrayList<T> EvenTrees;
+
+  public TreeEvenParams(int count, ArrayList<T> nodes) {
+    childCount = count;
+    EvenTrees = nodes;
+  }
+}
+
 public class SimpleTree<T> {
   public SimpleTreeNode<T> Root; // корень, может быть null
 
   public SimpleTree(SimpleTreeNode<T> root) {
     Root = root;
+  }
+
+  public ArrayList<T> EvenTrees(SimpleTreeNode<T> node) {
+    TreeEvenParams<T> treeEvenParams = exploreTreeEvenParams(node);
+
+    if ((treeEvenParams.childCount + 1) % 2 == 0)
+      return treeEvenParams.EvenTrees;
+
+    return new ArrayList<>();
+  }
+
+  TreeEvenParams<T> exploreTreeEvenParams(SimpleTreeNode<T> node) {
+    TreeEvenParams<T> treeEvenParams = new TreeEvenParams<T>(0, new ArrayList<T>());
+
+    if (node.Children == null)
+      return treeEvenParams;
+
+    int childCount = 0;
+
+    ArrayList<T> EvenTrees = new ArrayList<T>();
+
+    for (int i = 0; i < node.Children.size(); i++) {
+      childCount += 1;
+      SimpleTreeNode<T> childNode = node.Children.get(i);
+
+      TreeEvenParams<T> subTreeEvenParams = exploreTreeEvenParams(childNode);
+
+      childCount += subTreeEvenParams.childCount;
+
+      if ((subTreeEvenParams.childCount + 1) % 2 == 0 && subTreeEvenParams.childCount != 0) {
+        EvenTrees.add(node.NodeValue);
+        EvenTrees.add(childNode.NodeValue);
+      }
+
+      EvenTrees.addAll(subTreeEvenParams.EvenTrees);
+    }
+
+    treeEvenParams.childCount = childCount;
+    treeEvenParams.EvenTrees = EvenTrees;
+
+    return treeEvenParams;
   }
 
   public void AddChild(SimpleTreeNode<T> ParentNode, SimpleTreeNode<T> NewChild) {

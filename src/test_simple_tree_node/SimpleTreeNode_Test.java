@@ -319,4 +319,98 @@ public class SimpleTreeNode_Test {
 
     assertEquals(7, countOfNodes);
   }
+
+  @Test
+  public void test_8() {
+    // Тестирование поиска четных деревьев
+    SimpleTreeNode<Integer> node1 = new SimpleTreeNode<Integer>(1, null);
+    SimpleTreeNode<Integer> node2 = new SimpleTreeNode<Integer>(2, null);
+    SimpleTreeNode<Integer> node3 = new SimpleTreeNode<Integer>(3, null);
+    SimpleTreeNode<Integer> node4 = new SimpleTreeNode<Integer>(4, null);
+    SimpleTreeNode<Integer> node5 = new SimpleTreeNode<Integer>(5, null);
+    SimpleTreeNode<Integer> node6 = new SimpleTreeNode<Integer>(6, null);
+    SimpleTreeNode<Integer> node7 = new SimpleTreeNode<Integer>(7, null);
+    SimpleTreeNode<Integer> node8 = new SimpleTreeNode<Integer>(8, null);
+    SimpleTreeNode<Integer> node9 = new SimpleTreeNode<Integer>(9, null);
+    SimpleTreeNode<Integer> node10 = new SimpleTreeNode<Integer>(10, null);
+
+    node1.Children = new ArrayList<>();
+    node1.Children.add(node2);
+    node1.Children.add(node3);
+    node1.Children.add(node6);
+
+    node2.Parent = node1;
+    node3.Parent = node1;
+    node6.Parent = node1;
+
+    node3.Children = new ArrayList<>();
+    node3.Children.add(node4);
+    node4.Parent = node3;
+
+    node2.Children = new ArrayList<>();
+    node2.Children.add(node5);
+    node2.Children.add(node7);
+    node5.Parent = node2;
+    node7.Parent = node2;
+
+    node6.Children = new ArrayList<>();
+    node6.Children.add(node8);
+    node8.Parent = node6;
+
+    node8.Children = new ArrayList<>();
+    node8.Children.add(node9);
+    node8.Children.add(node10);
+    node9.Parent = node8;
+    node10.Parent = node8;
+
+    SimpleTree<Integer> tree = new SimpleTree<Integer>(node1);
+
+    ArrayList<Integer> evenList = tree.EvenTrees(node1);
+
+    for (int i = 0; i < evenList.size(); i++) {
+      System.out.println("even i = " + evenList.get(i));
+    }
+
+    assertEquals((Integer) 1, evenList.get(0));
+    assertEquals((Integer) 3, evenList.get(1));
+    assertEquals((Integer) 1, evenList.get(2));
+    assertEquals((Integer) 6, evenList.get(3));
+  }
+
+  @Test
+  public void test_9() {
+    // Тестирование поиска четных деревьев
+    SimpleTreeNode<Integer> node1 = new SimpleTreeNode<Integer>(1, null);
+    SimpleTreeNode<Integer> node2 = new SimpleTreeNode<Integer>(2, null);
+    SimpleTreeNode<Integer> node3 = new SimpleTreeNode<Integer>(3, null);
+    SimpleTreeNode<Integer> node4 = new SimpleTreeNode<Integer>(4, null);
+    SimpleTreeNode<Integer> node6 = new SimpleTreeNode<Integer>(6, null);
+    SimpleTreeNode<Integer> node8 = new SimpleTreeNode<Integer>(8, null);
+
+    node1.Children = new ArrayList<>();
+    node1.Children.add(node2);
+    node1.Children.add(node3);
+    node1.Children.add(node6);
+
+    node2.Parent = node1;
+    node3.Parent = node1;
+    node6.Parent = node1;
+
+    node3.Children = new ArrayList<>();
+    node3.Children.add(node4);
+    node4.Parent = node3;
+
+    node6.Children = new ArrayList<>();
+    node6.Children.add(node8);
+    node8.Parent = node6;
+
+    SimpleTree<Integer> tree = new SimpleTree<Integer>(node1);
+
+    ArrayList<Integer> evenList = tree.EvenTrees(node1);
+
+    assertEquals((Integer) 1, evenList.get(0));
+    assertEquals((Integer) 3, evenList.get(1));
+    assertEquals((Integer) 1, evenList.get(2));
+    assertEquals((Integer) 6, evenList.get(3));
+  }
 }
