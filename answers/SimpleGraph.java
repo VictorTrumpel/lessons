@@ -17,6 +17,43 @@ class SimpleGraph {
     vertex = new Vertex[size];
   }
 
+  public ArrayList<Vertex> DepthFirstSearch(int VFrom, int VTo) {
+    for (int i = 0; i < vertex.length; i++) {
+      vertex[i].Hit = false;
+    }
+
+    ArrayList<Vertex> stack = new ArrayList<Vertex>();
+
+    DepthFirstSearch(VFrom, VTo, stack);
+
+    return stack;
+  }
+
+  boolean DepthFirstSearch(int VFrom, int VTo, ArrayList<Vertex> stack) {
+
+    if (VFrom == VTo) {
+      stack.add(vertex[VFrom]);
+      return true;
+    }
+
+    vertex[VFrom].Hit = true;
+
+    stack.add(vertex[VFrom]);
+
+    for (int i = 0; i < m_adjacency[VFrom].length; i++) {
+      if (m_adjacency[VFrom][i] == 1 && vertex[i].Hit == false) {
+        boolean reached = DepthFirstSearch(i, VTo, stack);
+
+        if (reached)
+          return true;
+        else
+          stack.remove(stack.size() - 1);
+      }
+    }
+
+    return false;
+  }
+
   public void AddVertex(int value) {
     Vertex newVertex = new Vertex(value);
 
