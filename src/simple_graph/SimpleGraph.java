@@ -138,7 +138,7 @@ public class SimpleGraph {
 
   public void AddEdge(int v1, int v2) {
     m_adjacency[v1][v2] = 1;
-    m_adjacency[v2][v1] = 1;
+    // m_adjacency[v2][v1] = 1;
   }
 
   public void RemoveEdge(int v1, int v2) {
