@@ -13,6 +13,61 @@ public class SimpleGraph {
     vertex = new Vertex[size];
   }
 
+  public ArrayList<Vertex> BreadthFirstSearch(int VFrom, int VTo) {
+    for (int i = 0; i < vertex.length; i++) {
+      vertex[i].Hit = false;
+      vertex[i].PrevVertexIdx = -1;
+    }
+
+    ArrayDeque<Integer> queue = new ArrayDeque<Integer>();
+
+    queue.add(VFrom);
+
+    Integer needVertexIdx = null;
+
+    while (queue.size() > 0) {
+      Integer currVertexIdx = queue.pop();
+
+      vertex[currVertexIdx].Hit = true;
+
+      if (currVertexIdx == VTo) {
+        needVertexIdx = currVertexIdx;
+        break;
+      }
+
+      for (int i = 0; i < m_adjacency[currVertexIdx].length; i++) {
+        if (m_adjacency[currVertexIdx][i] == 1 && vertex[i].Hit == false) {
+          vertex[i].PrevVertexIdx = currVertexIdx;
+          queue.add(i);
+        }
+      }
+    }
+
+    ArrayList<Vertex> reversedPathOfNode = new ArrayList<Vertex>();
+
+    if (needVertexIdx == null)
+      return reversedPathOfNode;
+
+    int currentNode = needVertexIdx;
+
+    while (currentNode != -1) {
+      reversedPathOfNode.add(vertex[currentNode]);
+      currentNode = vertex[currentNode].PrevVertexIdx;
+    }
+
+    return reverseList(reversedPathOfNode);
+  }
+
+  ArrayList<Vertex> reverseList(ArrayList<Vertex> list) {
+    ArrayList<Vertex> reversedList = new ArrayList<Vertex>();
+
+    for (int i = list.size() - 1; i >= 0; i--) {
+      reversedList.add(list.get(i));
+    }
+
+    return reversedList;
+  }
+
   public ArrayList<Vertex> DepthFirstSearch(int VFrom, int VTo) {
     for (int i = 0; i < vertex.length; i++) {
       vertex[i].Hit = false;

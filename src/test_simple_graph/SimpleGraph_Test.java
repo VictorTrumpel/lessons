@@ -38,7 +38,7 @@ public class SimpleGraph_Test {
     // System.out.println("list i = " + list.get(i).Value);
     // }
 
-    ArrayList<Vertex> list2 = simple_graph.DepthFirstSearch(5, 6);
+    ArrayList<Vertex> list2 = simple_graph.BreadthFirstSearch(0, 7);
 
     for (int i = 0; i < list2.size(); i++) {
       System.out.println("list i = " + list2.get(i).Value);
