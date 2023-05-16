@@ -32,6 +32,10 @@ public class SimpleGraph_Test {
 
     ArrayList<Vertex> list = simple_graph.BreadthFirstSearch(0, 3);
 
+    for (int i = 0; i < list.size(); i++) {
+      System.out.println("list i = " + list.get(i).Value);
+    }
+
     assertEquals(4, list.size());
     assertEquals(0, list.get(0).Value);
     assertEquals(1, list.get(1).Value);
@@ -82,5 +86,36 @@ public class SimpleGraph_Test {
     assertEquals(2, list.size());
     assertEquals(0, list.get(0).Value);
     assertEquals(3, list.get(1).Value);
+  }
+
+  @Test
+  public void test_3() {
+    SimpleGraph simple_graph = new SimpleGraph(6);
+
+    simple_graph.AddVertex(0); // A
+    simple_graph.AddVertex(1); // B
+    simple_graph.AddVertex(2); // C
+    simple_graph.AddVertex(3); // D
+    simple_graph.AddVertex(4); // E
+    simple_graph.AddVertex(5); // F
+
+    simple_graph.AddEdge(0, 1);
+    simple_graph.AddEdge(0, 2);
+
+    simple_graph.AddEdge(2, 3);
+    simple_graph.AddEdge(3, 3);
+
+    simple_graph.AddEdge(3, 1);
+    simple_graph.AddEdge(3, 4);
+
+    simple_graph.AddEdge(1, 4);
+
+    simple_graph.AddEdge(4, 5);
+
+    ArrayList<Vertex> list = simple_graph.BreadthFirstSearch(0, 4);
+    assertEquals(3, list.size());
+    assertEquals(0, list.get(0).Value);
+    assertEquals(1, list.get(1).Value);
+    assertEquals(4, list.get(2).Value);
   }
 }

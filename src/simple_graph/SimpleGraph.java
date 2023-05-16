@@ -35,10 +35,17 @@ public class SimpleGraph {
         break;
       }
 
-      for (int i = 0; i < m_adjacency[currVertexIdx].length; i++) {
-        if (m_adjacency[currVertexIdx][i] == 1 && vertex[i].Hit == false) {
-          vertex[i].PrevVertexIdx = currVertexIdx;
-          queue.add(i);
+      for (int childVIdx = 0; childVIdx < m_adjacency[currVertexIdx].length; childVIdx++) {
+        if (!IsEdge(currVertexIdx, childVIdx))
+          continue;
+
+        System.out.println("childVIdx :>> " + childVIdx);
+
+        if (vertex[childVIdx].PrevVertexIdx == -1)
+          vertex[childVIdx].PrevVertexIdx = currVertexIdx;
+
+        if (vertex[childVIdx].Hit == false) {
+          queue.add(childVIdx);
         }
       }
     }
@@ -48,11 +55,17 @@ public class SimpleGraph {
     if (needVertexIdx == null)
       return reversedPathOfNode;
 
-    int currentNode = needVertexIdx;
+    int currentVIdx = needVertexIdx;
 
-    while (currentNode != -1) {
-      reversedPathOfNode.add(vertex[currentNode]);
-      currentNode = vertex[currentNode].PrevVertexIdx;
+    System.out.println("currentVIdx :>> " + currentVIdx);
+
+    while (true) {
+      reversedPathOfNode.add(vertex[currentVIdx]);
+
+      if (currentVIdx == -1 || currentVIdx == VFrom)
+        break;
+
+      currentVIdx = vertex[currentVIdx].PrevVertexIdx;
     }
 
     return reverseList(reversedPathOfNode);
@@ -138,7 +151,7 @@ public class SimpleGraph {
 
   public void AddEdge(int v1, int v2) {
     m_adjacency[v1][v2] = 1;
-    // m_adjacency[v2][v1] = 1;
+    m_adjacency[v2][v1] = 1;
   }
 
   public void RemoveEdge(int v1, int v2) {
