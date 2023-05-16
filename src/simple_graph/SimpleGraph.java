@@ -39,8 +39,6 @@ public class SimpleGraph {
         if (!IsEdge(currVertexIdx, childVIdx))
           continue;
 
-        System.out.println("childVIdx :>> " + childVIdx);
-
         if (vertex[childVIdx].PrevVertexIdx == -1)
           vertex[childVIdx].PrevVertexIdx = currVertexIdx;
 
@@ -56,8 +54,6 @@ public class SimpleGraph {
       return reversedPathOfNode;
 
     int currentVIdx = needVertexIdx;
-
-    System.out.println("currentVIdx :>> " + currentVIdx);
 
     while (true) {
       reversedPathOfNode.add(vertex[currentVIdx]);
