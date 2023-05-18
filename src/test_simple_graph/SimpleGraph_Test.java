@@ -118,4 +118,65 @@ public class SimpleGraph_Test {
     assertEquals(1, list.get(1).Value);
     assertEquals(4, list.get(2).Value);
   }
+
+  @Test
+  public void test_4() {
+    SimpleGraph simple_graph = new SimpleGraph(9);
+
+    simple_graph.AddVertex(0);
+    simple_graph.AddVertex(1);
+    simple_graph.AddVertex(2);
+    simple_graph.AddVertex(3);
+    simple_graph.AddVertex(4);
+    simple_graph.AddVertex(5);
+    simple_graph.AddVertex(6);
+    simple_graph.AddVertex(7);
+    simple_graph.AddVertex(8);
+
+    simple_graph.AddEdge(7, 0);
+    simple_graph.AddEdge(7, 8);
+    simple_graph.AddEdge(7, 6);
+
+    simple_graph.AddEdge(0, 6);
+    simple_graph.AddEdge(8, 6);
+
+    simple_graph.AddEdge(0, 1);
+
+    simple_graph.AddEdge(1, 2);
+
+    simple_graph.AddEdge(6, 2);
+
+    simple_graph.AddEdge(2, 3);
+
+    simple_graph.AddEdge(3, 4);
+
+    simple_graph.AddEdge(2, 4);
+
+    simple_graph.AddEdge(5, 4);
+
+    ArrayList<Vertex> list = simple_graph.WeakVertices();
+
+    assertEquals(2, list.size());
+
+    assertEquals(1, list.get(0).Value);
+    assertEquals(5, list.get(1).Value);
+  }
+
+  @Test
+  public void test_5() {
+    SimpleGraph simple_graph = new SimpleGraph(4);
+
+    simple_graph.AddVertex(0);
+    simple_graph.AddVertex(1);
+    simple_graph.AddVertex(2);
+    simple_graph.AddVertex(3);
+
+    simple_graph.AddEdge(0, 2);
+    simple_graph.AddEdge(0, 1);
+    simple_graph.AddEdge(0, 3);
+
+    ArrayList<Vertex> list = simple_graph.WeakVertices();
+
+    assertEquals(4, list.size());
+  }
 }

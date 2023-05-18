@@ -13,11 +13,73 @@ public class SimpleGraph {
     vertex = new Vertex[size];
   }
 
-  public ArrayList<Vertex> BreadthFirstSearch(int VFrom, int VTo) {
+  public ArrayList<Vertex> WeakVertices() {
+    resetGraph();
+
+    ArrayList<Vertex> weakList = new ArrayList<Vertex>();
+
+    ArrayDeque<Integer> queue = new ArrayDeque<Integer>();
+
+    queue.add(0);
+
+    while (queue.size() > 0) {
+      int currVertexIdx = queue.pop();
+
+      vertex[currVertexIdx].Hit = true;
+
+      if (vertex[currVertexIdx].isWeak == null) {
+        detectTriangle(currVertexIdx);
+
+        if (vertex[currVertexIdx].isWeak)
+          weakList.add(vertex[currVertexIdx]);
+      }
+
+      for (int childVIdx = 0; childVIdx < m_adjacency[currVertexIdx].length; childVIdx++) {
+        if (vertex[childVIdx].Hit == false) 
+          queue.add(childVIdx);
+      }
+    }
+
+    return weakList;
+  }
+
+  void detectTriangle(int VIdx) {
+    ArrayList<Integer> children = new ArrayList<Integer>();
+
+    for (int i = 0; i < m_adjacency[VIdx].length; i++) {
+      if (m_adjacency[VIdx][i] == 1)
+        children.add(i);
+    }
+
+    for (int i = 0; i < children.size() - 1; i++) {
+      int childVIdx1 = children.get(i);
+
+      for (int j = i + 1; j < children.size(); j++) {
+        int childVIdx2 = children.get(j);
+
+        if (IsEdge(childVIdx1, childVIdx2)) {
+          vertex[VIdx].isWeak = false;
+          vertex[childVIdx1].isWeak = false;
+          vertex[childVIdx2].isWeak = false;
+
+          return;
+        }
+      }
+    }
+
+    vertex[VIdx].isWeak = true;
+  }
+
+  void resetGraph() {
     for (int i = 0; i < vertex.length; i++) {
       vertex[i].Hit = false;
       vertex[i].PrevVertexIdx = -1;
+      vertex[i].isWeak = null;
     }
+  }
+
+  public ArrayList<Vertex> BreadthFirstSearch(int VFrom, int VTo) {
+    resetGraph();
 
     ArrayDeque<Integer> queue = new ArrayDeque<Integer>();
 
@@ -78,9 +140,7 @@ public class SimpleGraph {
   }
 
   public ArrayList<Vertex> DepthFirstSearch(int VFrom, int VTo) {
-    for (int i = 0; i < vertex.length; i++) {
-      vertex[i].Hit = false;
-    }
+    resetGraph();
 
     ArrayList<Vertex> stack = new ArrayList<Vertex>();
 
