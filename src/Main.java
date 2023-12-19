@@ -13,10 +13,10 @@ import build_tree.*;
 public class Main {
 
   public static void main(String[] args) {
-    ReadDir readDir = new ReadDir();
+    Random random = new Random();
 
-    List<String> listFiles = readDir.findFiles("/Users/victortrumpel/Desktop/study/asd-1/src/recursion/test");
+    int val = random.nextInt(0, 2);
 
-    System.out.println(listFiles);
+    System.out.println(val);
   }
 }
