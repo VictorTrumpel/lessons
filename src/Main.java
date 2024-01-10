@@ -12,12 +12,19 @@ import build_tree.*;
 
 import intTree.*;
 
+import splay_tree.*;
+
 public class Main {
 
   public static void main(String[] args) {
     IntTree intTree = new IntTree(0, 4);
 
     IntervalTreeNode root = intTree.root;
+
+    SplayTree splayTree = new SplayTree();
+
+    SplayTree.Node node = splayTree.createNode();
+
 
     // System.out.println(intTree.root.start);
     // System.out.println(intTree.root.end);
