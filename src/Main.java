@@ -14,34 +14,25 @@ import intTree.*;
 
 import splay_tree.*;
 
+import decart_tree.*;
+
 public class Main {
 
   public static void main(String[] args) {
-    IntTree intTree = new IntTree(0, 4);
+    DecartTree tree = new DecartTree();
 
-    IntervalTreeNode root = intTree.root;
+    DecartTree.Node node8_5 = tree.createNode(8, 5);
+    DecartTree.Node node9_4 = tree.createNode(9, 4);
+    DecartTree.Node node4_1 = tree.createNode(4, 1);
+    DecartTree.Node node3_7 = tree.createNode(3, 7);
 
-    SplayTree splayTree = new SplayTree();
+    ArrayList<DecartTree.Node> list = new ArrayList<>();
+    list.add(node8_5);
+    list.add(node9_4);
+    list.add(node4_1);
+    list.add(node3_7);
 
-    SplayTree.Node node = splayTree.createNode();
-
-
-    // System.out.println(intTree.root.start);
-    // System.out.println(intTree.root.end);
-
-    // System.out.println(root.left.start);
-    // System.out.println(root.left.end);
-
-
-    // System.out.println(root.left.left.start);
-    // System.out.println(root.left.left.right);
-
-    // System.out.println(root.left.right.left);
-    // System.out.println(root.left.right.right);
-
-    IntervalTreeNode findNode = intTree.findValue(1);
-    System.out.println(findNode.end);
-    System.out.println(findNode.start);
+    tree.createTree(list);
 
   }
 }
