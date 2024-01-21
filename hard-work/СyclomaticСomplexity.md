@@ -95,22 +95,20 @@ class CompanyApi {
 class OptionList {
   constructor(private api: UserApi | CompanyApi) {}
 
+  private createOption(id: number, label: string) {
+    return { id, label };
+  }
+
   private convertToOption(data: User | Company): Option {
-    if (data instanceof User) {
-      return {
-        id: data.userId,
-        label: name,
-      };
-    }
-    return {
-      id: data.companyId,
-      label: title,
-    };
+    const isUser = data instanceof User;
+
+    return isUser
+      ? this.createOption(data.userId, data.name)
+      : this.createOption(data.companyId, data.title);
   }
 
   async getOptionList(): Promise<Option[]> {
     const items = await this.api.getItems();
-
     return items.map(this.convertToOption);
   }
 
@@ -135,4 +133,60 @@ class OptionList {
 Сделал одинаковые названия методов, для получения сущностей.  
 Привел сущности User и Company к одному виду.
 
+---
+
+# Пример 2.
+
+## Автомат состояний.
+
+### Было:
+
+```typescript
+class ClipperTool {
+  mode: "ADD" | "REMOVE" | null;
+
+  addClipper() {
+    if (this.mode === "ADD") {
+      // логика по добавления подрезки на 3D модели
+    }
+  }
+
+  deleteClipper() {
+    if (this.mode === "REMOVE") {
+      // логика по удалению подрезки на 3D модели
+    }
+  }
+}
+```
+
+### Стало:
+
+```typescript
+interface ClipperApi {
+  addClipper(): void;
+  deleteClipper(): void;
+}
+
+class AddClipperTool implements ClipperApi {
+  addClipper() {
+    // логика по добавления подрезки на 3D модели
+  }
+
+  deleteClipper() {}
+}
+
+class DeleteClipperTool implements ClipperApi {
+  addClipper() {}
+
+  deleteClipper() {
+    // логика по удалению подрезки на 3D модели
+  }
+}
+```
+
+---
+
+Создаю интрефейс, которые требует реализовать 2 метода: addClipper, deleteClipper.
+Далее создаю 2 класса для 2-х состояний инструмента подрезки.  
+Таким образом я могу не проверять в каком состоянии находится инструмент, а сразу писать логику добавления/удаления подрезки.  
 ---
