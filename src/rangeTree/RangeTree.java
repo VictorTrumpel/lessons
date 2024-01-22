@@ -28,6 +28,9 @@ class RangeTree {
     this.root = buildRangeTree(points, 0, points.length - 1, true);
   }
 
+  private void testM(Integer a) {}
+  private void testM(String b) {}
+
   private Node buildRangeTree(Point[] points, int start, int end, boolean byX) {
     if (start == end) {
       return new Node(points[start]);
