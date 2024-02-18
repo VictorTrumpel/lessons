@@ -489,6 +489,8 @@ FinishingApi -
 
 ---
 
+<img width="1354" alt="Screenshot 2024-02-19 at 00 20 31" src="https://github.com/VictorTrumpel/lessons/assets/59663275/193281d7-0b15-4d28-9225-6a8b96b7162b">
+
 #### Реализация:
 
 ```typescript
