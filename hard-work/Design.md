@@ -365,3 +365,343 @@ class RootStore {
 IfcApi - библиотечный класс. Если мы захотим переехать на новую библиотеку - мы сможем это сделать т.к. наши тулзы не зависят от библиотеки напрямую.
 
 ---
+
+### Пример 2.
+
+```typescript
+const SERVER_URL = import.meta.env.VITE_APP_SERVER_URL;
+
+export class FinishingController {
+  headers: Headers = new Headers();
+  method: "POST" | "GET" | "DELETE" | "PUT" = "GET";
+  url: URL | null = null;
+
+  async create(createFinishingDTO: CreateFinishingDTO): Promise<Finishing> {
+    const getFinishingDTO = await fetch(SERVER_URL, {
+      ...createFinishingDTO,
+      body: JSON.stringify(SERVER_URL),
+    });
+
+    return this.convertToFinishing(getFinishingDTO);
+  }
+
+  async getByRoomUuid(roomUuid: string): Promise<Finishing | null> {
+    const page = await await fetch(`${SERVER_URL}/${roomUuid}`, {
+      body: JSON.stringify(SERVER_URL),
+    });
+
+    const [getFinishingDTO] = page.content;
+
+    if (!getFinishingDTO) return null;
+
+    return this.convertToFinishing(getFinishingDTO);
+  }
+
+  async updateFinishingItem(
+    updateFinishingItemDTO: UpdateFinishingItemDTO
+  ): Promise<GetFinishingItemDTO> {
+    return await fetch(SERVER_URL, {
+      ...updateFinishingItemDTO,
+      method: "PUT",
+      body: JSON.stringify(SERVER_URL),
+    });
+  }
+
+  private convertToFinishing(getFinishingDTO: GetFinishingDTO) {
+    const finishing = new Finishing();
+
+    finishing.id = getFinishingDTO.id;
+    finishing.uuid = getFinishingDTO.uuid;
+    finishing.roomName = getFinishingDTO.roomName;
+    finishing.roomUuid = getFinishingDTO.roomUuid;
+    finishing.projectId = getFinishingDTO.projectId;
+    finishing.containerId = getFinishingDTO.containerId;
+    finishing.modelFile = getFinishingDTO.modelFile;
+    finishing.dateCreate = this.convertToDate(getFinishingDTO.dateCreate);
+    finishing.finishingList = [];
+
+    getFinishingDTO.finishingList.forEach((item) => {
+      const finishingItem = this.convertToFinishingItem(item);
+      finishing.finishingList.push(finishingItem);
+    });
+
+    return finishing;
+  }
+
+  private convertToDate(possibleDate: string | null): Date | null {
+    if (!possibleDate) return null;
+    return new Date(possibleDate);
+  }
+
+  private convertToFinishingItem(getFinishingItemDTO: GetFinishingItemDTO) {
+    const finishingItem = new FinishingItem();
+
+    finishingItem.id = getFinishingItemDTO.id;
+    finishingItem.uuid = getFinishingItemDTO.uuid;
+    finishingItem.type = getFinishingItemDTO.type;
+    finishingItem.name = getFinishingItemDTO.name;
+    finishingItem.mark = getFinishingItemDTO.mark;
+    finishingItem.units = getFinishingItemDTO.units;
+    finishingItem.factUnits = getFinishingItemDTO.factUnits;
+    finishingItem.status = getFinishingItemDTO.status;
+    finishingItem.comment = getFinishingItemDTO.comment;
+    finishingItem.finishingId = getFinishingItemDTO.finishingId;
+
+    return finishingItem;
+  }
+}
+```
+
+---
+
+Суть кода:
+
+- Делать запросы на бэкенд, связанные с отделкой
+
+Проблема кода:
+
+- Не гибкая система запросов и обработок ошибок с бэкенда и трансформации данных.
+
+---
+
+#### Дизайн:
+
+---
+
+Сущности: Network, FinishingService, FinishingApi
+
+Network -
+
+- сущность для взаимодействия с сетью. Каждый раз, когда неоходимо сделать запрос по сети - нужно создать инстанс Network.
+- может выбрасывать определенный пулл ошибок
+
+FinishingService
+
+- cущность, которая создает небходимые инстансы Network именно для работы с Finishing(отделкой)
+- настроен на то, что бы обрабатывать ошибки от Network
+- предоставляет методы для сетевых запросов с Finihsing, но запросы осуществляет через Network
+
+FinishingApi -
+
+- делает запросы на FinishingService и преобразовывает ответы от FinishingService в нужный формат данных.
+- к FinishingApi обращаются компоненты отображения. Они не знают откуда получает FinishingApi получает ответы
+
+---
+
+#### Реализация:
+
+```typescript
+export class Network<PayloadBody, ResponseBody> {
+  url: URL | null = null;
+  headers: Headers = new Headers();
+  method: "POST" | "GET" | "DELETE" | "PUT" = "GET";
+
+  async request(payloadBody: PayloadBody): Promise<ResponseBody> {
+    const urlStr = this.url?.href || "";
+
+    const response = await fetch(urlStr, this.getFetchConfig(payloadBody));
+
+    const responseJson = await response.json();
+
+    return responseJson as ResponseBody;
+  }
+
+  private getFetchConfig(payloadBody: PayloadBody) {
+    const baseFetchConfig = {
+      method: this.method,
+      headers: this.headers,
+    };
+
+    if (this.method === "GET") {
+      return baseFetchConfig;
+    }
+
+    return {
+      ...baseFetchConfig,
+      body: JSON.stringify(payloadBody),
+    };
+  }
+}
+
+const SERVER_URL = import.meta.env.VITE_APP_SERVER_URL;
+
+export class FinishingService {
+  private baseURL = new URL(SERVER_URL);
+
+  async create(
+    createFinishingDTO: CreateFinishingDTO
+  ): Promise<GetFinishingDTO> {
+    const network = this.createPostFinishingNetwork();
+
+    return await network.request(createFinishingDTO);
+  }
+
+  async getAll(queryParams: {
+    roomUuid?: string;
+    page?: number;
+    size?: number;
+  }): Promise<Page<GetFinishingDTO>> {
+    const network = this.createGetFinishingNetwork<
+      null,
+      Page<GetFinishingDTO>
+    >();
+
+    const { page, size, roomUuid } = queryParams;
+
+    if (page) {
+      network.url?.searchParams.set("page", `${page}`);
+    }
+    if (size) {
+      network.url?.searchParams.set("size", `${size}`);
+    }
+    if (roomUuid) {
+      network.url?.searchParams.set("roomUuid", `${roomUuid}`);
+    }
+
+    return await network.request(null);
+  }
+
+  async updateFinishingItem(updateFinishingItemDTO: UpdateFinishingItemDTO) {
+    const network = this.createPutFinishingItemNetwork<
+      UpdateFinishingItemDTO,
+      GetFinishingItemDTO
+    >();
+
+    return await network.request(updateFinishingItemDTO);
+  }
+
+  private createPostFinishingNetwork() {
+    const createFinishingUrl = new URL("finishing", this.baseURL);
+
+    const headers = this.createHeaders();
+
+    const network = new Network<CreateFinishingDTO, GetFinishingDTO>();
+    network.url = createFinishingUrl;
+    network.method = "POST";
+    network.headers = headers;
+
+    return network;
+  }
+
+  private createGetFinishingNetwork<PayloadBody, ResponseBody>() {
+    const getFinishingUrl = new URL("finishing", this.baseURL);
+
+    const headers = this.createHeaders();
+
+    const network = new Network<PayloadBody, ResponseBody>();
+    network.url = getFinishingUrl;
+    network.method = "GET";
+    network.headers = headers;
+
+    return network;
+  }
+
+  private createPutFinishingItemNetwork<PayloadBody, ResponseBody>() {
+    const getFinishingUrl = new URL("finishing/item", this.baseURL);
+
+    const headers = this.createHeaders();
+
+    const network = new Network<PayloadBody, ResponseBody>();
+    network.url = getFinishingUrl;
+    network.method = "PUT";
+    network.headers = headers;
+
+    return network;
+  }
+
+  private createHeaders(): Headers {
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    return headers;
+  }
+}
+
+export class FinishingApi {
+  private readonly finishingService = new FinishingService();
+
+  async create(createFinishingDTO: CreateFinishingDTO): Promise<Finishing> {
+    const getFinishingDTO = await this.finishingService.create(
+      createFinishingDTO
+    );
+
+    return this.convertToFinishing(getFinishingDTO);
+  }
+
+  async getByRoomUuid(roomUuid: string): Promise<Finishing | null> {
+    const page = await this.finishingService.getAll({ roomUuid });
+    const [getFinishingDTO] = page.content;
+
+    if (!getFinishingDTO) return null;
+
+    return this.convertToFinishing(getFinishingDTO);
+  }
+
+  async updateFinishingItem(
+    updateFinishingItemDTO: UpdateFinishingItemDTO
+  ): Promise<GetFinishingItemDTO> {
+    return await this.finishingService.updateFinishingItem(
+      updateFinishingItemDTO
+    );
+  }
+
+  private convertToFinishing(getFinishingDTO: GetFinishingDTO) {
+    const finishing = new Finishing();
+
+    finishing.id = getFinishingDTO.id;
+    finishing.uuid = getFinishingDTO.uuid;
+    finishing.roomName = getFinishingDTO.roomName;
+    finishing.roomUuid = getFinishingDTO.roomUuid;
+    finishing.projectId = getFinishingDTO.projectId;
+    finishing.containerId = getFinishingDTO.containerId;
+    finishing.modelFile = getFinishingDTO.modelFile;
+    finishing.dateCreate = this.convertToDate(getFinishingDTO.dateCreate);
+    finishing.finishingList = [];
+
+    getFinishingDTO.finishingList.forEach((item) => {
+      const finishingItem = this.convertToFinishingItem(item);
+      finishing.finishingList.push(finishingItem);
+    });
+
+    return finishing;
+  }
+
+  private convertToDate(possibleDate: string | null): Date | null {
+    if (!possibleDate) return null;
+    return new Date(possibleDate);
+  }
+
+  private convertToFinishingItem(getFinishingItemDTO: GetFinishingItemDTO) {
+    const finishingItem = new FinishingItem();
+
+    finishingItem.id = getFinishingItemDTO.id;
+    finishingItem.uuid = getFinishingItemDTO.uuid;
+    finishingItem.type = getFinishingItemDTO.type;
+    finishingItem.name = getFinishingItemDTO.name;
+    finishingItem.mark = getFinishingItemDTO.mark;
+    finishingItem.units = getFinishingItemDTO.units;
+    finishingItem.factUnits = getFinishingItemDTO.factUnits;
+    finishingItem.status = getFinishingItemDTO.status;
+    finishingItem.comment = getFinishingItemDTO.comment;
+    finishingItem.finishingId = getFinishingItemDTO.finishingId;
+
+    return finishingItem;
+  }
+}
+```
+
+#### Рефлексия:
+
+---
+
+При описании дизайна я понял, что сетевая логика программы не может находится в одном классе.  
+Поэтому получилось 3 сущности.
+
+Network - интерфейс взаимодействия с сетью. Под капотом он может использовать браузерное апи для работы с сетью, или любое другое. Мы не зависим от платформы.
+
+FinishingService - знает только что такое Network и как его настроить таким образом, что бы получать нужные Finishing (нужную отделку помещения). Он тоже становится независимым от платформы.
+
+Network и FinishingService мы можем переносить на любое приложение без изменений. К конкретному клиенту их привязывает FinishingApi.
+
+FinishingApi - ничего не знает о сети. Он знает только как у FinishingService попросить нужную отделку и как преобразовать эту отделку в формат, понятный текущему клиенту.
+
+---
