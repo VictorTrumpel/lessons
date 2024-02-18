@@ -194,6 +194,7 @@ _ClipperToolStore_ и _RulerToolStore_ взаимодействуют с _ModelC
 _RootStor_ - место входа программы.
 
 ---
+<img width="1008" alt="Screenshot 2024-02-19 at 00 16 24" src="https://github.com/VictorTrumpel/lessons/assets/59663275/3858719b-56bc-48f1-b336-f0521f22400a">
 
 #### Реализация:
 
