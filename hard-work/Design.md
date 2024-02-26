@@ -194,6 +194,7 @@ _ClipperToolStore_ и _RulerToolStore_ взаимодействуют с _ModelC
 _RootStor_ - место входа программы.
 
 ---
+<img width="1008" alt="Screenshot 2024-02-19 at 00 16 24" src="https://github.com/VictorTrumpel/lessons/assets/59663275/3858719b-56bc-48f1-b336-f0521f22400a">
 
 #### Реализация:
 
@@ -487,6 +488,8 @@ FinishingApi -
 - к FinishingApi обращаются компоненты отображения. Они не знают откуда получает FinishingApi получает ответы
 
 ---
+
+<img width="1354" alt="Screenshot 2024-02-19 at 00 20 31" src="https://github.com/VictorTrumpel/lessons/assets/59663275/193281d7-0b15-4d28-9225-6a8b96b7162b">
 
 #### Реализация:
 
