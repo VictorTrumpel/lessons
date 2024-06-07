@@ -16,7 +16,7 @@ enum PUSH_STATUS {
   PUSH_ERR = 2,
 }
 
-class Stack<T> {
+class BoundedStack<T> {
   // скрытые поля
   private stack: T[] = []; // основное хранилище стека
   private peek_status: PEEK_STATUS = PEEK_STATUS.PEEK_NIL; // статус запроса peek()
