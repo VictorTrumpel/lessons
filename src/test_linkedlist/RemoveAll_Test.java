@@ -23,12 +23,13 @@ public class RemoveAll_Test {
     Node n1 = head.next;
     Node tail = list.tail;
 
+    assertEquals(list.count(), 2);
+
     assertEquals(head.value, 11);
     assertEquals(head.prev, null);
     assertEquals(head.next.value, 12);
 
     assertEquals(n1.value, 12);
-    assertEquals(n1.prev.value, 11);
     assertEquals(n1.prev, head);
     assertEquals(n1.next, null);
 

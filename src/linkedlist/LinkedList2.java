@@ -92,34 +92,50 @@ public class LinkedList2 {
     return true;
   }
 
-  public void removeAll(int _value) {
-    Node prevNode = null;
-    Node node = this.head;
+  private Node removeNode(Node cursor) {
+    if (cursor == null) return null;
 
-    while (node != null) {
-      if (node.value == _value) {
-        if (prevNode == null & node.next == null) {
-          this.head = null;
-          this.tail = null;
-        }
+    Node prevNode = cursor.prev;
+    Node nextNode = cursor.next;
 
-        if (prevNode == null) {
-          this.head = node.next;
-          if (this.head != null)
-            this.head.prev = null;
-        }
+    cursor.prev = null;
+    cursor.next = null;
 
-        if (node.next == null) {
-          this.tail = prevNode;
-          if (this.tail != null)
-            this.tail.next = null;
-        }
+    if (head == cursor && tail == cursor) {
+      head = null;
+      tail = null;
+      return null;
+    }
 
-        if (prevNode != null & node.next != null) {
-          prevNode.next = node.next;
-          node.next.prev = prevNode;
-        }
+    if (head == cursor) {
+      head = head.next;
+      cursor = head;
+      return cursor;
+    }
+
+    if (tail == cursor) {
+      tail = tail.prev;
+      if (tail != null) {
+        tail.next = null;
       }
+      cursor = tail;
+      return cursor;
+    }
+
+    if (prevNode != null) {
+      prevNode.next = nextNode;
+    }
+
+    if (nextNode != null) {
+      nextNode.prev = prevNode;
+    }
+
+    if (nextNode != null) {
+      return nextNode;
+    }
+
+    return prevNode;
+  }
 
       if (node.value != _value) {
         prevNode = node;
