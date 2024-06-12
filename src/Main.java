@@ -16,6 +16,17 @@ import splay_tree.*;
 
 import decart_tree.*;
 
+class ParentNode {
+  public Integer a = 1;
+  public Integer b = 2;
+}
+
+class Node extends ParentNode {
+  public void printA() {
+    System.out.println(this.a);
+  }
+}
+
 public class Main {
 
   public static void main(String[] args) {
@@ -31,6 +42,9 @@ public class Main {
     list.add(node9_4);
     list.add(node4_1);
     list.add(node3_7);
+
+    Node node = new Node();
+    node.printA();
 
     tree.createTree(list);
 

@@ -115,9 +115,6 @@ public class LinkedList2 {
 
     if (tail == cursor) {
       tail = tail.prev;
-      if (tail != null) {
-        tail.next = null;
-      }
       cursor = tail;
       return cursor;
     }
@@ -137,8 +134,22 @@ public class LinkedList2 {
     return prevNode;
   }
 
-      if (node.value != _value) {
-        prevNode = node;
+  public void removeAll(int _value) {
+    Node prevNode = null;
+    Node node = this.head;
+
+    while (node != null) {
+      System.out.println("node value : >> " + node.value);
+
+      if (node.value == _value) {
+        System.out.println("node need delete value : >> " + node.value);
+        node = removeNode(node);
+        if (node != null) {
+          System.out.println("node after delete value : >> " + node.value);
+        } else {
+          System.out.println("node after delete value : >> " + node);
+        }
+        continue;
       }
 
       node = node.next;
