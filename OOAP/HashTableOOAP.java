@@ -1,5 +1,7 @@
 package hash_table;
 
+// Предыдущие задания по очередям выполнил правильно
+
 public class HashTableOOAP {
   public int size;
   public int step = 2;
