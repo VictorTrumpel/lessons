@@ -1,7 +1,5 @@
 package hash_table;
 
-// Предыдущие задания по очередям выполнил правильно
-
 public class HashTableOOAP {
   public int size;
   public int step = 2;
@@ -102,20 +100,6 @@ public class HashTableOOAP {
     }
 
     return false;
-  }
-
-  public int find(String value) {
-    int idx = 0;
-
-    while (idx < slots.length) {
-      if (slots[idx] != null && slots[idx].equals(value)) {
-        return idx;
-      }
-
-      idx += 1;
-    }
-
-    return -1;
   }
 
   private int hashFun(String value) {

@@ -1,8 +1,3 @@
-/*
-Отчет по предыдущей работе:
-По какой-то причине я не добавил метод get в мою имплементацию HashTable. В этом и была моя ошибка.
-В остальном все правильно.
-*/
 package native_dictionary;
 
 import java.util.HashMap;
@@ -64,3 +59,4 @@ public class NativeDictionaryOOAP<T> {
     return removeStatus;
   }
 }
+

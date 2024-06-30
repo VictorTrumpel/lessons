@@ -1,5 +1,4 @@
 package power_set;
-
 public class PowerSet {
   private int size;
   private int step;
